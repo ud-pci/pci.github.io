@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>About - pci</title>
+  <title>Installation - pci</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "About";
-    var mkdocs_page_input_path = "about.md";
+    var mkdocs_page_name = "Installation";
+    var mkdocs_page_input_path = "installation.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -51,20 +51,26 @@
                     <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                     </li>
                 </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Installation</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#required-libraries">Required libraries</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#obtaining-the-source-code">Obtaining the source code</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#via-git">via git</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#building-with-cmake">Building with CMake</a>
+    </li>
+    </ul>
                     </li>
                 </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
                     </li>
                 </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">About</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#pci-development-team">pCI Development Team</a>
-    </li>
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
                     </li>
                 </ul>
       </div>
@@ -88,7 +94,7 @@
     
       
     
-    <li>About</li>
+    <li>Installation</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -99,14 +105,43 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="about-us">About Us</h1>
-<h2 id="pci-development-team">pCI Development Team</h2>
-<p>Marianna Safronova</p>
-<p>Charles Cheung</p>
-<p>Sergey Porsev</p>
-<p>Mikhail Kozlov</p>
-<p>Ilya Tupitsyn</p>
-<p>Andrey Bondarev</p>
+                <h1 id="installation">Installation</h1>
+<h2 id="required-libraries">Required libraries</h2>
+<p>In order to compile pCI the following software libraries and tools are required:</p>
+<ul>
+<li>Intel Fortran compiler.</li>
+<li>CMake build tool.</li>
+<li>(Optional) MPI library to run on high-performance computing clusters. The codes have only been tested with OpenMPI so far.</li>
+</ul>
+<h2 id="obtaining-the-source-code">Obtaining the source code</h2>
+<p>Users can download the latest version of the pCI code package from</p>
+<pre><code>https://github.com/ccheung93/pCI
+</code></pre>
+<h2 id="via-git">via git</h2>
+<p>From the command line, you can clone the latest version:</p>
+<pre><code>git clone https://github.com/ccheung93/pCI.git
+</code></pre>
+<h2 id="building-with-cmake">Building with CMake</h2>
+<p>The codes are built using the 'CMakeLists.txt' file. The following are some example builds on the DARWIN computing cluster.</p>
+<p>A Debug build can be done:</p>
+<pre><code>$ cd pCI
+$ mkdir build-debug
+$ cd build-debug
+$ vpkg_require cmake openmpi/4.1.0:intel-2020
+$ FC=mpifort cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$(pwd)/../20200402-debug ..
+   :
+$ make
+$ make install
+</code></pre>
+<p>An optimized build demands a little more:</p>
+<pre><code>$ cd ..
+$ mkdir build-opt
+$ cd build-opt
+$ FC=mpifort cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(pwd)/../20200317-opt -DCMAKE_Fortran_FLAGS_RELEASE=&quot;-g -O3 -mcmodel=large -xHost -m64&quot; ..
+   :
+$ make
+$ make install
+</code></pre>
               
             </div>
           </div>
@@ -114,8 +149,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="../changelog/" class="btn btn-neutral float-right" title="Changelog">Next <span class="icon icon-circle-arrow-right"></span></a>
       
-        <a href="../changelog/" class="btn btn-neutral" title="Changelog"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -143,8 +180,10 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../changelog/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
       
+      
+        <span style="margin-left: 15px"><a href="../changelog/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
