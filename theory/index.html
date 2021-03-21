@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Theory - pci</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Theory";
+    var mkdocs_page_input_path = "theory.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> pci</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Theory</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#configuration-interaction">Configuration Interaction</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#valence-perturbation-theory">Valence Perturbation Theory</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#references">References</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">pci</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Theory</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="theory">Theory</h1>
+<p>For any many-electron system, we can divide all electrons into core and valence electrons. In this way, we can separate the electron-electron correlation problem into one describing the valence-valence correlations under the frozen-core approximation, and another describing the core-core and core-valence correlations. In the initial approximation, we start from the solution of the restricted Dirac-Hartree-Fock (HFD) equations in the central field approximation to construct one-electron orbitals for the core and valence electrons. Virtual orbitals can be constructed from B-splines or by other means to account for correlations. The valence-valence correlation problem is solved using the CI method, while core-core and core-valence correlations are included using either MBPT or the all-order method. In either case, we form an effective Hamiltonian in the valence CI space, then diagonalize the effective Hamiltonian using the CI method to find energies and wave functions for the low-lying states.</p>
+<h2 id="configuration-interaction">Configuration Interaction</h2>
+<p>The CI method is a standard <em>ab initio</em> method for calculating atomic properties of many-electron systems. In the valence space, the CI wave function is constructed as a linear combination of all distinct states of a specified angular momentum <script type="math/tex"> J </script> and parity
+<script type="math/tex; mode=display"> \Psi_J=\sum_ic_i\Phi_i, </script>
+where the set <script type="math/tex"> \left\{\Phi_i\right\} </script> are Slater determinants generated by exciting electrons from some reference configurations obtained to higher orbitals. </p>
+<p>Varying the coefficients $c_i$ results in a generalized eigenvalue problem
+<script type="math/tex; mode=display"> \sum_j\langle\Phi_i|H|\Phi_j\rangle c_j = Ec_i, </script>
+which can be written in matrix form and diagonalized to find the energies and wave functions of the low-lying states. The energy matrix of the CI method can be obtained as a projection of the exact Hamiltonian <script type="math/tex"> H </script> onto the CI subspace <script type="math/tex"> H^\text{CI} </script> [^1]
+<script type="math/tex; mode=display"> H^\text{CI}=E_\text{core}+\sum_{i>N_\text{core}}h_i^\text{CI}+\sum_{j>i>N_\text{core}}V_{ij}, </script>
+where <script type="math/tex"> E_\text{core} </script> is the energy of the frozen core, <script type="math/tex"> N_\text{core} </script> is the number of core electrons, <script type="math/tex"> h_i^\text{CI} </script> accounts for the kinetic energy of the valence electrons and their interaction with the central field, and <script type="math/tex"> V_{ij} </script> accounts for the valence-valence correlations. </p>
+<p>Having obtained from CI the many-electron states <script type="math/tex"> |J M\rangle </script> and <script type="math/tex"> |J' M'\rangle </script> with the total angular momenta <script type="math/tex"> J,J' </script> and their projections <script type="math/tex"> M,M' </script>, one can form density transition matrix in terms of the one-electron states <script type="math/tex"> |nljm\rangle </script> [^2]
+<script type="math/tex; mode=display"> \hat{\rho}=\rho_{nljm,n^\prime l^\prime j^\prime m^\prime}|nljm\rangle\langle n^\prime l^\prime j^\prime m^\prime|, </script>
+where
+<script type="math/tex; mode=display"> \rho_{nljm,n^\prime l^\prime j^\prime m^\prime}=\langle J^\prime M^\prime|a_{n^\prime l^\prime j^\prime m^\prime}^\dagger a_{nljm}|JM\rangle. </script>
+Here un-primed indices refer to the initial state and primed indices refer to the final state. The many-electron matrix element can then be written as 
+<script type="math/tex; mode=display"> \langle J^\prime M^\prime|T_q^L|JM\rangle=\text{Tr}\,\rho_{nljm,n^\prime l^\prime j^\prime m^\prime}\langle n^\prime l^\prime j^\prime m^\prime|T_q^L|nljm\rangle, </script>
+where the trace sums over all quantum numbers <script type="math/tex"> (nljm) </script> and <script type="math/tex"> (n^\prime l^\prime j^\prime m^\prime) </script>, and <script type="math/tex"> T_q^L </script> is the spherical component of the tensor operator of rank <script type="math/tex"> L </script>. Using the Wigner-Eckart theorem, one can reduce the many-electron matrix element to
+<script type="math/tex; mode=display"> \langle J^\prime \Vert T^L \Vert J\rangle = \text{Tr}\,\rho_{nlj,n^\prime l^\prime j^\prime}^L \langle n^\prime l^\prime j^\prime\Vert T^L \Vert nlj\rangle, </script>
+where
+<script type="math/tex; mode=display"> \rho_{nlj,n^\prime l^\prime j^\prime}^L = (-1)^{J^\prime -M^\prime}\left(
+\begin{array}{ccc}
+    J^\prime & L & J \\ -M^\prime & q & M
+\end{array}\right)^{-1} \sum_{mm^\prime} (-1)^{j^\prime-m^\prime}\left(
+\begin{array}{ccc}
+    j^\prime & L & j \\ -m^\prime & q & m
+\end{array}\right) \rho_{nljm,n^\prime l^\prime j^\prime m^\prime}. </script>
+</p>
+<p>We have developed new parallel programs based on these methods: <code>conf</code> realizes the CI method, which forms the CI Hamiltonian and uses Davidson's algorithm of diagonalization [^3] to find low-lying energies and wave functions; <code>dtm</code> calculates reduced matrix elements of one-electron operators by forming the reduced density transition matrices.</p>
+<h2 id="valence-perturbation-theory">Valence Perturbation Theory</h2>
+<p>As the number of configurations contributing to the CI wave function grows exponentially with the number of valence electrons, efficient selection of the most important configurations from a set of configurations becomes the main challenge of accurate computations. To significantly reduce the number of configurations, we further developed a method suggested in Ref. [^4] to predict important configurations based on a set of configurations with known weights. This method can be used to optimize the CI space by identifying the most important configurations from a list of CI configurations using perturbation theory (PT). </p>
+<p>All second-order corrections are taken into account and added to the energy calculated from CI to obtain the total energy, <script type="math/tex"> E^\text{CI}=E_0+E_1 </script>, while first-order corrections to the wave functions are stored for use in subsequent CI calculations. This process of using CI on a small subspace, calculating corrections via PT, and reordering the list of configurations in descending weights can be repeated several times to form the most optimal CI subspace. Once the energy differences between subsequent CI calculations are relatively small, it can be assumed that convergence has been met. </p>
+<p>We've developed a new parallel program <code>conf_pt</code> that realizes the CI+PT method. The parallel version enables computations of extremely large problems, with tests running up to 400 million determinants. </p>
+<h2 id="references">References</h2>
+<p>[^1]: V. A. Dzuba, V. V. Flambaum, and M. G. Kozlov. Combination of the many-body perturbation theory with the configuration-interaction method. <em>Phys. Rev. A</em>, 54<script type="math/tex">5</script>:3948&ndash;3959, November 1996.</p>
+<p>[^2]: M. G. Kozlov, S. G. Porsev, M. S. Safronova, and I. I. Tupitsyn. CI-MBPT: A package of programs for relativistic atomic calculations based on a method combining configuration interaction and many-body perturbation theory. <em>Computer Physics Communications</em>, 195:199–213, 2015.</p>
+<p>[^3]: Ernest R. Davidson. The iterative calculation of a few of the lowest eigenvalues and corresponding eigenvectors of large real-symmetric matrices. <em>Journal of Computational Physics</em>, 17<script type="math/tex">1</script>:87–94, January 1975.</p>
+<p>[^4]: Yu. G. Rakhlina, M. G. Kozlov, and S. G. Porsev. The energy of electron affinity to a zirconium atom. <em>Optics and Spectroscopy</em>, 90<script type="math/tex">6</script>:817–821, June 2001.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../changelog/" class="btn btn-neutral float-right" title="Changelog">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../installation/" class="btn btn-neutral" title="Installation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>&copy; Copyright 2021, pCI Development Team.</p>
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../installation/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../changelog/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
