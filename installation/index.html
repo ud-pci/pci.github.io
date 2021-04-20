@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="../css/theme.css" />
   <link rel="stylesheet" href="../css/theme_extra.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link href="../css/extra.css" rel="stylesheet" />
   
   <script>
     // Current page data
@@ -47,10 +48,14 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <p class="caption"><span class="caption-text">Basics</span></p>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../theory/">Theory</a>
                     </li>
                 </ul>
+                <p class="caption"><span class="caption-text">Using pCI</span></p>
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">Installation</a>
     <ul class="current">
@@ -60,21 +65,36 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#via-git">via git</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#building-with-cmake">Building with CMake</a>
+    <li class="toctree-l2"><a class="reference internal" href="#compiling-with-cmake">Compiling with CMake</a>
     </li>
     </ul>
                     </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../theory/">Theory</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../ud_instructions/">Working at UD</a>
                     </li>
                 </ul>
+                <p class="caption"><span class="caption-text">pCI Technical Details</span></p>
                 <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../main/">Main programs</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../auxiliary/">Auxiliary programs</a>
+                    </li>
                     <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
                     </li>
                 </ul>
+                <p class="caption"><span class="caption-text">Examples</span></p>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../qed/">Running QED</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../basis_ex1/">Example 1 - constructing a basis set</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../basis_ex2/">Example 2 - B-spline basis sets</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">About</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About the Team</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../contact/">Contact Us</a>
                     </li>
                 </ul>
       </div>
@@ -96,6 +116,10 @@
   <ul class="wy-breadcrumbs">
     <li><a href="..">Docs</a> &raquo;</li>
     
+      
+        
+          <li>Using pCI &raquo;</li>
+        
       
     
     <li>Installation</li>
@@ -125,7 +149,7 @@
 <p>From the command line, you can clone the latest version:</p>
 <pre><code>git clone https://github.com/ccheung93/pCI.git
 </code></pre>
-<h2 id="building-with-cmake">Building with CMake</h2>
+<h2 id="compiling-with-cmake">Compiling with CMake</h2>
 <p>The codes are built using the 'CMakeLists.txt' file. The following are some example builds on the DARWIN computing cluster.</p>
 <p>A Debug build can be done:</p>
 <pre><code>$ cd pCI
@@ -153,10 +177,10 @@ $ make install
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../theory/" class="btn btn-neutral float-right" title="Theory">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../ud_instructions/" class="btn btn-neutral float-right" title="Working at UD">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../theory/" class="btn btn-neutral" title="Theory"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -184,10 +208,10 @@ $ make install
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../theory/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../theory/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../ud_instructions/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

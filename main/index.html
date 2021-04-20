@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Main programs - pci</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link href="../css/extra.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Main programs";
+    var mkdocs_page_input_path = "main.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> pci</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <p class="caption"><span class="caption-text">Basics</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../theory/">Theory</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Using pCI</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../ud_instructions/">Working at UD</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">pCI Technical Details</span></p>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Main programs</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview-of-the-pci-code-package">Overview of the pCI code package</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#hfd-hartree-fock-dirac">hfd - hartree-fock-dirac</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#bass-constructing-the-basis-set">bass - constructing the basis set</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#add-creating-the-configuration-list">add - creating the configuration list</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#basc-calculating-radial-integrals">basc - calculating radial integrals</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#conf-configuration-interaction">conf - configuration interaction</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#dtm-density-transition-matrix">dtm - density transition matrix</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../auxiliary/">Auxiliary programs</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Examples</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../qed/">Running QED</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../basis_ex1/">Example 1 - constructing a basis set</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../basis_ex2/">Example 2 - B-spline basis sets</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">About</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About the Team</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../contact/">Contact Us</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">pci</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>pCI Technical Details &raquo;</li>
+        
+      
+    
+    <li>Main programs</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="main-programs">Main programs</h1>
+<h2 id="overview-of-the-pci-code-package">Overview of the pCI code package</h2>
+<p><img alt="scheme" src="../img/codes-NSF.png" />
+<em>Figure. pCI code scheme</em></p>
+<h2 id="hfd-hartree-fock-dirac">hfd - hartree-fock-dirac</h2>
+<p>The <code>hfd</code> program solves restricted Hartree-Fock-Dirac (HFD) equations self-consistently under the central field approximation to find four-component Dirac-Fock (DF) orbitals and eigenvalues of the HFD Hamiltonian. The program provides the initial approximation, storing both basis radial orbitals
+<script type="math/tex; mode=display"> \phi_{nlj}\equiv r\left(\begin{array}{c}f_{nlj}\\-g_{nlj}\end{array}\right), </script>
+as well as the radial derivatives of the orbitals <script type="math/tex"> \partial_r\phi_{nlj} </script>, to the file <code>HFD.DAT</code>. </p>
+<h2 id="bass-constructing-the-basis-set">bass - constructing the basis set</h2>
+<p>The <code>bass</code> program forms the DF orbitals for the core and valence shells, then adds virtual orbitals to account for correlations. A reasonable basis set should consist of orbitals mainly localized at the same distances from the origin as the valence orbitals. </p>
+<h2 id="add-creating-the-configuration-list">add - creating the configuration list</h2>
+<p>The <code>add</code> program constructs a list of configurations to define the CI space by exciting electrons from a set of reference configurations to a set of active non-relativistic shells. It takes in the input file <code>ADD.INP</code>, which specifies the reference configurations, active non-relativistic shells, and minimum and maximum occupation numbers of each shell. It writes the file <code>CONF.INP</code>, which includes a list of user-defined parameters and the list of configurations constructed by exciting electrons from a list of basic configurations.</p>
+<p>The following is a sample input <code>ADD.INP</code> file. Each line has a description of the respective variable. The third block starting with <code>4f  9 14</code> is a list of the orbitals and minimum and maximum occupation numbers. For example, <code>4f  9 14</code> refers to having a minimum of 9 electrons or a maximum of 14 electrons for the 4f orbital. </p>
+<pre><code class="language-text">Ncor=  4               !# number of basic configurations. Must match the list below.
+NsvNR 16               !# number of active NR shells. The list below may be longer. 
+mult=  2               !# multiplicity of excitations. For full CI use mult=Ne   
+ NE = 14               !# number of valence electrons
+
+L:   4f14              !# list of basic configurations
+L:   4f13  5p1         !# from which electrons are excited from.
+L:   4f12  5s2         !# the number of configurations listed here
+L:   4f11  5s2   5p1   !# must match the number on the first line 'Ncor= 4'
+
+   4f  9 14   5s  0  2   5p  0  3   5d  0  2   5f  0  2   5g  0  2  
+   6s  0  2   6p  0  2   6d  0  2   6f  0  2   6g  0  2   7s  0  2  
+   7p  0  2   7d  0  2   7f  0  2   7g  0  2                        
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; Head of the file CONF.INP &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+  Ir17+_even            # ion_parity                                                                                                      
+  Z = 77.0              # atomic number    
+ Am = 192.0             # atomic weight       
+  J =  4.0              # total angular momentum      
+ Jm =  4.0              # angular momentum projection      
+ Nso=  14               # number of closed core shells     
+ Nc =   10              # number of relativistic configurations (ignored in add program)         
+ Kv =   4               # Kv = (3 - use projections, 4 - no projections)                 
+ Nlv=  5                # number of energy levels    
+ Ne =  14               # number of valence electrons                               
+ Kl4=   1               # Kl4 = (1 - initial approx. from energy matrix, 2 - initial approx. from CONF.XIJ file)
+ Nc4=  20               # number of relativistic configurations in initial approximation
+ Gj =  0.0000           #                                                           
+Crt4=  0.0001           # cutoff criteria for davidson convergence                                                          
+kout= 0                 # key for level of output (0 - low detail output, 1 - detailed output)
+Ncpt=   0               # number of relativistic configurations in PT block (ignored in add program)
+Cut0= 0.0001            # cutoff criteria for weights of PT configurations
+N_it=  100              # number of davidson iterations
+Kbrt= 1                 # key for Breit (0 - Coulomb, 1 - Gaunt, 2 - Full Breit)
+Gnuc= 1.07              # gyromagnetic ratio             
+     0.1002     0.2002    -0.2102     0.2104     0.3002    -0.3102
+     0.3104    -0.3204     0.3206     0.4002    -0.4102     0.4104
+    -0.4204     0.4206
+==================================================================
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The second block listing the basic configurations has a specific formatting <code>__nnlee__</code>, where <code>__</code> indicate spaces, <code>nn</code> is the principal quantum number, <code>l</code> is the angular momentum quantum number as a letter (<code>s=0</code>, <code>l=1</code>, <code>d=2</code>, ...), and <code>ee</code> is the number of electrons in that orbital. </p>
+</div>
+<h2 id="basc-calculating-radial-integrals">basc - calculating radial integrals</h2>
+<p>After the configuration list has been created, the next step is to calculate the radial integrals using the program <code>basc</code>. <code>basc</code> calculates one-electron and two-electron radial integrals, which are used by the <code>conf</code> program to form the Hamiltonian in the CI space. The one-electron radial integrals correspond to the DF potential of the core, and the two-electron radial integrals account for the Coulomb and Breit interactions between the valence electrons. The matrix elements of the Coulomb interaction for the multipolarity <script type="math/tex"> k </script> can be written as
+<script type="math/tex; mode=display">  \langle c,d|V_q^k|a,b\rangle \equiv G_q^k(ca) G_q^k(bd) R_{abcd}^k, </script>
+where the angular factors <script type="math/tex"> G_q^k(fi) </script> (known as relativistic Gaunt coefficients) are given by
+<script type="math/tex; mode=display"> G_q^k(fi)=(-1)^{m_f+1/2}\delta_p\sqrt{(2j_i+1)(2j_f+1)}
+  \begin{pmatrix} 
+   j_f & j_i & k \\  
+  -m_f & m_i & q
+  \end{pmatrix}
+  \begin{pmatrix} 
+  j_f & j_i & k \\  
+  1/2 & -1/2 & 0
+  \end{pmatrix}, </script>
+and <script type="math/tex"> R_{abcd}^k </script> are the relativistic Coulomb radial integrals, and <script type="math/tex"> \delta_p </script> accounts for the parity selection rule
+<script type="math/tex; mode=display"> \delta_p=\xi(l_i+l_f+k), \hspace{0.2in}\xi(n)=\Bigg\{
+  \begin{matrix}
+  1 & \text{if \( n \) is even,} \\ 
+  0 & \text{if \( n \) is odd.}
+  \end{matrix} </script>
+<br />
+The Breit interaction has the same form as the Coulomb interaction, but without the parity selection rule. </p>
+<p>The <code>basc</code> reads in the files <code>HFD.DAT</code> and <code>CONF.INP</code> to determine which radial integrals are needed. These integrals are calculated and written to the files <code>CONF.INT</code>. The relativistic Gaunt coefficients are written to the file <code>CONF.GNT</code>, and the file <code>CONF.DAT</code> is also formed, storing the basis radial orbitals <script type="math/tex"> \phi_{nlj} </script>, as well as functions <script type="math/tex"> \chi_{nlj} = h_\text{DF}^r\phi_{nlj} </script>. </p>
+<h2 id="conf-configuration-interaction">conf - configuration interaction</h2>
+<p>In this section, we will introduce how to run the CI program <code>conf</code>. </p>
+<p>Here is a summary of the input and output files used in <code>conf</code>.</p>
+<p>Input Files:</p>
+<ul>
+<li><code>HFD.DAT</code> - basis set radial orbitals <script type="math/tex"> \phi_{nlj} </script> and radial derivatives of the orbitals <script type="math/tex"> \partial_r\phi_{nlj} </script>
+</li>
+<li><code>CONF.DAT</code> - basis set radial orbitals <script type="math/tex"> \phi_{nlj} </script> and functions <script type="math/tex"> \chi_{nlj}=h_\text{HF}^r\phi_{nlj} </script>, where <script type="math/tex"> h_\text{HF}^r </script> is the radial part of the Dirac-Fock operator</li>
+<li><code>CONF.GNT</code> - relativistic Gaunt coefficients produced by <code>basc</code></li>
+<li><code>CONF.INT</code> - relativistic Coulomb coefficients produced by <code>basc</code></li>
+<li><code>SGC.CON</code> (optional) - one-electron effective radial integrals of the MBPT/all-order corrections</li>
+<li><code>SCRC.CON</code> (optional) - two-electron effective radial integrals of the MBPT/all-order corrections</li>
+<li><code>CONF.INP</code> - list of relativistic configurations and user defined parameters</li>
+<li><code>c.in</code> - input file with keys <code>Kl</code>, <code>Ksig</code>, and <code>Kdsig</code><ul>
+<li><code>Kl</code> = (0 - start, 1 - continue calculation, 2 - include corrections, 3 - add configurations)</li>
+<li><code>Ksig</code> = (0 - pure CI, 1 - include one-electron corrections, 2 - include one- and two-electron corrections)</li>
+<li><code>Kdsig</code> = (0 - no energy dependence on Sigma, 1 - energy dependence on Sigma)</li>
+</ul>
+</li>
+</ul>
+<p>Output Files:</p>
+<ul>
+<li><code>CONF.DET</code> - basis set of determinants</li>
+<li><code>CONF.HIJ</code> - indices and values of the Hamiltonian matrix elements</li>
+<li><code>CONF.JJJ</code> - indices and values of the matrix elements of the operator <script type="math/tex"> J^2 </script>
+</li>
+<li><code>CONF.XIJ</code> - quantum numbers, eigenvalues and eigenvectors of the Hamiltonian</li>
+<li><code>CONF.RES</code> - final table of energy eigenvalues and the weights of all configurations contributing to each term</li>
+</ul>
+<p>The following is a sample of the head of a <code>CONF.INP</code> for calculating the even-parity states of Ir<script type="math/tex"> ^{17+} </script>.</p>
+<pre><code>  Ir17+_even            # ion_parity                                               
+  Z = 77.0              # atomic number
+ Am =193.0              # atomic weight
+  J =  2.0              # total angular momentum
+ Jm =  2.0              # angular momentum projection
+ Nso=  14               # number of closed core shells
+ Nc = 481               # number of relativistic configurations
+ Kv =   4               # Kv = (3 - use projections, 4 - no projections)           
+ Nlv= 5                 # number of energy levels
+ Ne =  14               # number of valence electrons                          
+ Kl4=   1               # Kl4 = (1 - initial approx. from energy matrix, 2 - initial approx. from CONF.XIJ file)
+ Nc4=  28               # number of relativistic configurations in initial approximation
+ Gj =  0.0000           # 
+Crt4=  0.0001           # cutoff criteria for davidson convergence
+kout= 0                 # key for level of output (0 - low detail output, 1 - detailed output)
+Ncpt=  1132             # number of relativistic configurations in PT block (used in conf_pt)
+Cut0= 0.0001            # cutoff criteria for davidson convergence
+N_it=  100              # number of davidson iterations
+Kbrt= 1                 # key for Breit (0 - Coulomb, 1 - Gaunt, 2 - Full Breit)
+Gnuc= 1.07              # gyromagnetic ratio
+     0.1002     0.2002    -0.2102     0.2104     0.3002    -0.3102
+     0.3104    -0.3204     0.3206     0.4002    -0.4102     0.4104
+    -0.4204     0.4206
+   1
+   1-0.4306     0.4308
+   2
+   2-0.4306     0.4306     0.5002
+   3-0.4305     0.4307     0.5002
+   4-0.4304     0.4308     0.5002
+   3
+   5-0.4305     0.4308    -0.5101
+   6-0.4305     0.4308     0.5101
+   7-0.4306     0.4307    -0.5101
+   8-0.4306     0.4307     0.5101
+   :
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The first 5 columns up to the '=' sign are fixed, and the program will give an error if there are any discrepancies here. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The list of core shells are fixed to have a maximum of 6 shells per row.</p>
+</div>
+<p>In the <code>CONF.INP</code> file shown above, we include 481 relativistic configurations in the CI space, and 1132 relativistic configurations in the PT space (if <code>conf_pt</code> is to be used after <code>conf</code>).</p>
+<h2 id="dtm-density-transition-matrix">dtm - density transition matrix</h2>
+<p>The <code>dtm</code> program calculates matrix elements of one-electron operators between many-electron states, under the density (or transition) matrix formalism. This formalism allows us to express the matrix elements between many-electron states via one-electron matrix elements. The <code>dtm</code> program forms these reduced density (or transition) matrices and calculates the reduced matrix elements. The following quantities can be calculated from this program:
+- electron g-factors
+- magnetic dipole and electronic quadrupole hyperfine structure constants <script type="math/tex"> A </script> and <script type="math/tex"> B </script>
+- electric (<script type="math/tex"> Ek </script>) and magnetic (<script type="math/tex"> Mk </script>) multipole transition amplitudes, where <script type="math/tex"> k = 1,2,3 </script> corresponds to the dipole, quadrupole, and octupole transitions
+- nuclear spin independent parity nonconserving (PNC) amplitude
+- amplitude of the electron interaction with the P-odd nuclear anapole moment (AM)
+- P, T-odd interaction of the dipole electric dipole moment
+- nucleus magnetic quadrupole moment</p>
+<p>This program begins by reading the file <code>CONF.INP</code> for system parameters and the list of configurations. Next, basis radial orbitals are read from the file <code>CONF.DAT</code>, and radial integrals for all operators are calculated and written to the file <code>DTM.INT</code>. If this file already exists, <code>dtm</code> uses it and does not recalculate the radial integrals. </p>
+<p>For the diagonal matrix elements, the list of determinants and eigenvectors corresponding to the state of interest are read from the files <code>CONF.DET</code> and <code>CONF.XIJ</code>, respectively. For the non-diagonal matrix elements, the initial state is read from the file <code>CONF.DET</code> and <code>CONF.XIJ</code>, and the final state is read from the files <code>CONF1.DET</code> and <code>CONF1.XIJ</code>. The results of the diagonal and non-diagonal matrix elements are written to the files <code>DM.RES</code> and <code>TM.RES</code>, respectively. </p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../auxiliary/" class="btn btn-neutral float-right" title="Auxiliary programs">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../ud_instructions/" class="btn btn-neutral" title="Working at UD"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>&copy; Copyright 2021, pCI Development Team.</p>
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../ud_instructions/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../auxiliary/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

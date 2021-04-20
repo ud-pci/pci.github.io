@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>About the Team - pci</title>
+  <title>Auxiliary programs - pci</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -19,8 +19,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "About the Team";
-    var mkdocs_page_input_path = "about.md";
+    var mkdocs_page_name = "Auxiliary programs";
+    var mkdocs_page_input_path = "auxiliary.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -63,10 +63,22 @@
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">pCI Technical Details</span></p>
-                <ul>
+                <ul class="current">
                     <li class="toctree-l1"><a class="reference internal" href="../main/">Main programs</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../auxiliary/">Auxiliary programs</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Auxiliary programs</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#con_cut-truncating-configuration-lists">con_cut - truncating configuration lists</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#merge_ci-merging-configuration-lists">merge_ci - merging configuration lists</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#conf_pt-valence-perturbation-theory">conf_pt - valence perturbation theory</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#qed_pot_conf-">qed_pot_conf -</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sortjjj-converts-parallel-confjjj-to-serial-confjjj">sortjjj - converts parallel CONF.JJJ to serial CONF.JJJ</a>
+    </li>
+    </ul>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
                     </li>
@@ -81,12 +93,8 @@
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">About</span></p>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">About the Team</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#pci-development-team">pCI Development Team</a>
-    </li>
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About the Team</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../contact/">Contact Us</a>
                     </li>
@@ -112,11 +120,11 @@
     
       
         
-          <li>About &raquo;</li>
+          <li>pCI Technical Details &raquo;</li>
         
       
     
-    <li>About the Team</li>
+    <li>Auxiliary programs</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -127,26 +135,35 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="about-us">About Us</h1>
-<h2 id="pci-development-team">pCI Development Team</h2>
-<p><strong>Marianna Safronova</strong><br />
-Department of Physics and Astronomy, University of Delaware  </p>
-<p><em>Website</em>: <a href="http://www.physics.udel.edu/~msafrono/" target="_blank">http://www.physics.udel.edu/~msafrono/</a><br />
-<em>Email</em>: <a href="mailto:msafrono@udel.edu" target="_blank">msafrono@udel.edu</a></p>
-<hr />
-<p><strong>Charles Cheung</strong><br />
-Department of Physics and Astronomy, University of Delaware</p>
-<p><em>Email</em>: <a href="mailto:ccheung@udel.edu" target="_blank">ccheung@udel.edu</a></p>
-<hr />
-<p><strong>Sergey Porsev</strong><br />
-Department of Physics and Astronomy, University of Delaware<br />
-Petersburg Nuclear Physics Institute of NRC "Kurchatov Institute", Russia</p>
-<hr />
-<p>Mikhail Kozlov</p>
-<hr />
-<p>Ilya Tupitsyn</p>
-<hr />
-<p>Andrey Bondarev</p>
+                <h1 id="auxiliary-programs">Auxiliary programs</h1>
+<p>It is sometimes useful to combine two configuration lists. Here, we describe an auxiliary codes <code>con_cut</code> which truncates a configuration list, and <code>merge_ci</code> which merges two configuration lists.</p>
+<h2 id="con_cut-truncating-configuration-lists">con_cut - truncating configuration lists</h2>
+<p><code>con_cut</code> is used to truncate a configuration list to only hold all configurations with weights above a user-specified cutoff. This program outputs the file <code>CONF_CUT.RES</code>, which can be used as a new <code>CONF.INP</code> file. The configurations in <code>CONF_CUT.RES</code> are also listed in order of descending weights, so the most important configurations are at the top of the list. You can copy the top configurations to your <code>ADD.INP</code> file and reconstruct a new configuration list with the top configurations as basic configurations, or use <code>merge_ci</code> to put the top configurations in another <code>CONF.INP</code> file.</p>
+<h2 id="merge_ci-merging-configuration-lists">merge_ci - merging configuration lists</h2>
+<p><code>merge_ci</code> takes in two <code>CONF.INP</code> files named <code>C_A.INP</code> and <code>CONF.INP</code> and outputs the file <code>C_M.INP</code>. This output file can be renamed <code>CONF.INP</code> again to be used in <code>conf</code>. </p>
+<p>In summary:</p>
+<ol>
+<li>Run <code>con_cut</code>, inputting a cutoff threshold for the weight, to obtain <code>CON_CUT.RES</code>.</li>
+<li>Rename <code>CON_CUT.RES</code> to <code>C_A.INP</code>.</li>
+<li>Replace the basic configurations in <code>ADD.INP</code> with the top configurations from <code>C_A.INP</code> and run <code>add</code>.</li>
+<li>Run <code>merge_ci</code>, combining the configurations in <code>C_A.INP</code> and <code>CONF.INP</code> to obtain <code>C_M.INP</code>.</li>
+<li>Rename <code>CONF.INP</code> to <code>C_B.INP</code>, and <code>C_M.INP</code> to <code>CONF.INP</code>.</li>
+<li>Run <code>conf</code>. </li>
+</ol>
+<h2 id="conf_pt-valence-perturbation-theory">conf_pt - valence perturbation theory</h2>
+<p>When running CI calculations with a large number of configurations relative to the number of work resources, it is often times necessary to determine the most important configurations in the CI space, and truncate the list of configurations to make successive calculations feasible. </p>
+<p>The <code>conf_pt</code> program begins the same way <code>conf</code> begins, reading in several input parameters and the list of configurations from the file <code>CONF.INP</code>, the basis set from the files <code>HFD.DAT</code> and <code>CONF.DAT</code>, and the radial integrals from <code>CONF.INT</code> and <code>CONF.GNT</code>. In addition, it also reads the CI eigenvectors from the file <code>CONF.XIJ</code>. </p>
+<h2 id="qed_pot_conf-">qed_pot_conf -</h2>
+<p>The pCI package includes 5 variants (<code>kvar</code>) of QED potentials:</p>
+<ol>
+<li>QEDMOD</li>
+<li>Flambaum local potential + QEDMOD non-local correction</li>
+<li>Flambaum local potential</li>
+<li>QEDPOT</li>
+<li>Semi-empirical approach</li>
+</ol>
+<h2 id="sortjjj-converts-parallel-confjjj-to-serial-confjjj">sortjjj - converts parallel CONF.JJJ to serial CONF.JJJ</h2>
+<p><code>sortjjj.py</code> is a python program that sorts the matrix elements of the operator <script type="math/tex"> \bm{J^2} </script> in order of ascending index (as done in the serial version of the <code>conf</code> program). This program takes in the file <code>CONF.JJJ</code> and returns the file <code>CONFsorted.JJJ</code>. However, there is one change made to the file. There is an additional integer at the start of the file that stores the total number of matrix elements. </p>
               
             </div>
           </div>
@@ -154,10 +171,10 @@ Petersburg Nuclear Physics Institute of NRC "Kurchatov Institute", Russia</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../contact/" class="btn btn-neutral float-right" title="Contact Us">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../changelog/" class="btn btn-neutral float-right" title="Changelog">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../basis_ex2/" class="btn btn-neutral" title="Example 2 - B-spline basis sets"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../main/" class="btn btn-neutral" title="Main programs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -185,10 +202,10 @@ Petersburg Nuclear Physics Institute of NRC "Kurchatov Institute", Russia</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../basis_ex2/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../main/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../contact/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../changelog/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>About the Team - pci</title>
+  <title>Running QED - pci</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -19,8 +19,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "About the Team";
-    var mkdocs_page_input_path = "about.md";
+    var mkdocs_page_name = "Running QED";
+    var mkdocs_page_input_path = "qed.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -72,8 +72,12 @@
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Examples</span></p>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../qed/">Running QED</a>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Running QED</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#steps-to-run-a-qed-calculation">Steps to run a QED calculation</a>
+    </li>
+    </ul>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../basis_ex1/">Example 1 - constructing a basis set</a>
                     </li>
@@ -81,12 +85,8 @@
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">About</span></p>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">About the Team</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#pci-development-team">pCI Development Team</a>
-    </li>
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About the Team</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../contact/">Contact Us</a>
                     </li>
@@ -112,11 +112,11 @@
     
       
         
-          <li>About &raquo;</li>
+          <li>Examples &raquo;</li>
         
       
     
-    <li>About the Team</li>
+    <li>Running QED</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -127,26 +127,85 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="about-us">About Us</h1>
-<h2 id="pci-development-team">pCI Development Team</h2>
-<p><strong>Marianna Safronova</strong><br />
-Department of Physics and Astronomy, University of Delaware  </p>
-<p><em>Website</em>: <a href="http://www.physics.udel.edu/~msafrono/" target="_blank">http://www.physics.udel.edu/~msafrono/</a><br />
-<em>Email</em>: <a href="mailto:msafrono@udel.edu" target="_blank">msafrono@udel.edu</a></p>
-<hr />
-<p><strong>Charles Cheung</strong><br />
-Department of Physics and Astronomy, University of Delaware</p>
-<p><em>Email</em>: <a href="mailto:ccheung@udel.edu" target="_blank">ccheung@udel.edu</a></p>
-<hr />
-<p><strong>Sergey Porsev</strong><br />
-Department of Physics and Astronomy, University of Delaware<br />
-Petersburg Nuclear Physics Institute of NRC "Kurchatov Institute", Russia</p>
-<hr />
-<p>Mikhail Kozlov</p>
-<hr />
-<p>Ilya Tupitsyn</p>
-<hr />
-<p>Andrey Bondarev</p>
+                <h1 id="how-to-include-qed-corrections">How to include QED corrections</h1>
+<p>In this section, we will introduce calculations including QED corrections. </p>
+<h2 id="steps-to-run-a-qed-calculation">Steps to run a QED calculation</h2>
+<ol>
+<li>Construct basis set by running <code>hfd</code> and <code>bass</code> to obtain <code>HFD.DAT</code></li>
+<li>Run <code>sgc</code> to form an empty <code>SGC.CON</code> file</li>
+<li>Save a copy of <code>HFD.DAT</code> without QED using <code>cp HFD.DAT HFD-noQED.DAT</code></li>
+<li>
+<p>Create a file <code>qedpot.inp</code> with number corresponding to the variant of the QED potential and the name of the <code>HFD.DAT</code> file</p>
+<pre><code>===========================================
+qedpot.inp
+===========================================
+1           # kvar=1-5, Variant of QED potential
+HFD.DAT     # name of file holding basis set
+</code></pre>
+</li>
+<li>
+<p>Create a file <code>qed.in</code> selecting options</p>
+<pre><code>===========================================
+qed.in
+===========================================
+1   # 1 for general diagonalization, 2 for first-order
+1   # 1 for no QED, 2 for QED
+2   # 0 for Coulomb, 1 for Gaunt, 2 for Full Breit
+</code></pre>
+</li>
+<li>
+<p>Loop until convergence:</p>
+<ul>
+<li>Run <code>qedpot_conf</code> to construct selected QED potential</li>
+<li>Run <code>qed_rot</code> to rotate orbitals to diagonalize Hamiltonian with QED corrections</li>
+</ul>
+</li>
+<li>Save a copy of <code>SGC.CON</code> without QED using <code>cp SGC.CON SGC-noQED.CON</code></li>
+<li>Run <code>qedpot_conf</code></li>
+<li>Rename <code>SGCqed.CON</code> to <code>SGC.CON</code></li>
+<li>Run <code>conf</code></li>
+</ol>
+<p>You can also use the following script for steps 3-9, making sure to change inputs relevant to your job.</p>
+<pre><code class="language-text">===========================================
+batch.qed
+===========================================
+#! /bin/bash -fe
+kvar=1  # variant of QED potential
+bin='./'
+qedpot=$bin'qedpot_conf'
+qedrot=$bin'qed_rot'
+iter=25 # max number of iterations
+#####################################
+cat &gt;qedpot.inp &lt;&lt;EndofFile
+ $kvar
+ HFD.DAT
+EndofFile
+#####################################
+cat &gt;qed.in &lt;&lt;EndofFile
+1   # diagonalization
+1   # 1 for noQED, 2 for QED
+2   # 0 for Coulomb, 1 for Gaunt, 2 for Full Breit
+
+EndofFile
+#####################################
+n=1
+while [ $n -lt $iter ]; do
+echo 'Iteration '$n
+$qedpot &gt;qp.res
+$qedrot &lt;qed.in &gt;qr.res
+grep 'changed' &quot;QED_ROT.RES&quot;
+  if grep -q reached &quot;QED_ROT.RES&quot;; then
+  echo 'Converged in '$n' iterations'
+  break
+  fi
+  let n=n+1
+done
+cp SGC.CON SCG-noQED.CON
+./qedpot_conf &gt;qp.res 
+cp SGCqed.CON SGC.CON
+#
+#####################################
+</code></pre>
               
             </div>
           </div>
@@ -154,10 +213,10 @@ Petersburg Nuclear Physics Institute of NRC "Kurchatov Institute", Russia</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../contact/" class="btn btn-neutral float-right" title="Contact Us">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../basis_ex1/" class="btn btn-neutral float-right" title="Example 1 - constructing a basis set">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../basis_ex2/" class="btn btn-neutral" title="Example 2 - B-spline basis sets"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../changelog/" class="btn btn-neutral" title="Changelog"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -185,10 +244,10 @@ Petersburg Nuclear Physics Institute of NRC "Kurchatov Institute", Russia</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../basis_ex2/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../changelog/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../contact/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../basis_ex1/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
