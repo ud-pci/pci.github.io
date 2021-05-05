@@ -64,12 +64,22 @@
                 </ul>
                 <p class="caption"><span class="caption-text">pCI Technical Details</span></p>
                 <ul class="current">
-                    <li class="toctree-l1"><a class="reference internal" href="../main/">Main programs</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../main/">pCI code package</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../all-order/">all-order/MBPT code package</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../auxiliary/">Auxiliary programs</a>
                     </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../basis/">Building a basis set</a>
+                    </li>
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">Changelog</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#022-2021-04-23">[0.2.2] - 2021-04-23</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#021-2021-04-20">[0.2.1] - 2021-04-20</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#020-2021-04-09">[0.2.0] - 2021-04-09</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#010-2021-03-28">[0.1.0] - 2021-03-28</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#005-2021-03-23">[0.0.5] - 2021-03-23</a>
@@ -91,9 +101,9 @@
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../qed/">Running QED</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../basis_ex1/">Example 1 - constructing a basis set</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../basis_neutral/">Example 1 - basis set for neutral atoms</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../basis_ex2/">Example 2 - B-spline basis sets</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../basis_complex/">Example 2 - another method of creating basis</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">About</span></p>
@@ -140,6 +150,21 @@
             <div class="section">
               
                 <h1 id="changelog">Changelog</h1>
+<h2 id="022-2021-04-23">[0.2.2] - 2021-04-23</h2>
+<ul>
+<li>"sint1" in dtm_aux.f90: bug fix</li>
+</ul>
+<h2 id="021-2021-04-20">[0.2.1] - 2021-04-20</h2>
+<ul>
+<li>"mpi_wins" bug fix: added lines to allocate and broadcast Iarr for zero-cores </li>
+</ul>
+<h2 id="020-2021-04-09">[0.2.0] - 2021-04-09</h2>
+<ul>
+<li>initial import of new modernized "basc" program</li>
+<li>"basc" program has been modernized and included in the build process of the parallel package.</li>
+<li>"basc" has been tested with serial version and all results are identical in output files</li>
+<li>"basc" now utilizes dynamic memory allocation</li>
+</ul>
 <h2 id="010-2021-03-28">[0.1.0] - 2021-03-28</h2>
 <ul>
 <li>kv=3 functionality fully parallelized</li>
@@ -194,7 +219,7 @@
         <a href="../qed/" class="btn btn-neutral float-right" title="Running QED">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../auxiliary/" class="btn btn-neutral" title="Auxiliary programs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../basis/" class="btn btn-neutral" title="Building a basis set"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -222,7 +247,7 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../auxiliary/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../basis/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
         <span style="margin-left: 15px"><a href="../qed/" style="color: #fcfcfc">Next &raquo;</a></span>

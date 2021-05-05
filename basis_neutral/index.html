@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>About the Team - pci</title>
+  <title>Example 1 - basis set for neutral atoms - pci</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -19,8 +19,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "About the Team";
-    var mkdocs_page_input_path = "about.md";
+    var mkdocs_page_name = "Example 1 - basis set for neutral atoms";
+    var mkdocs_page_input_path = "basis_neutral.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -76,21 +76,23 @@
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Examples</span></p>
-                <ul>
+                <ul class="current">
                     <li class="toctree-l1"><a class="reference internal" href="../qed/">Running QED</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../basis_neutral/">Example 1 - basis set for neutral atoms</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Example 1 - basis set for neutral atoms</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#ac">Ac</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sr">Sr</a>
+    </li>
+    </ul>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../basis_complex/">Example 2 - another method of creating basis</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">About</span></p>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">About the Team</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#pci-development-team">pCI Development Team</a>
-    </li>
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About the Team</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../contact/">Contact Us</a>
                     </li>
@@ -116,11 +118,11 @@
     
       
         
-          <li>About &raquo;</li>
+          <li>Examples &raquo;</li>
         
       
     
-    <li>About the Team</li>
+    <li>Example 1 - basis set for neutral atoms</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -131,31 +133,94 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="about-us">About Us</h1>
-<h2 id="pci-development-team">pCI Development Team</h2>
-<p><strong>Marianna Safronova</strong><br />
-Department of Physics and Astronomy, University of Delaware  </p>
-<p><em>Website</em>: <a href="http://www.physics.udel.edu/~msafrono/" target="_blank">http://www.physics.udel.edu/~msafrono/</a><br />
-<em>Email</em>: <a href="mailto:msafrono@udel.edu" target="_blank">msafrono@udel.edu</a></p>
-<hr />
-<p><strong>Charles Cheung</strong><br />
-Department of Physics and Astronomy, University of Delaware</p>
-<p><em>Email</em>: <a href="mailto:ccheung@udel.edu" target="_blank">ccheung@udel.edu</a></p>
-<hr />
-<p><strong>Sergey Porsev</strong><br />
-Department of Physics and Astronomy, University of Delaware<br />
-Petersburg Nuclear Physics Institute of NRC "Kurchatov Institute", Russia</p>
-<hr />
-<p><strong>Mikhail Kozlov</strong><br />
-Petersburg Nuclear Physics Institute of NRC "Kurchatov Institute", Russia
-St. Petersburg Electrotechnical University “LETI”, Russia</p>
-<hr />
-<p><strong>Ilya Tupitsyn</strong><br />
-Department of Physics, St. Petersburg State University, Russia</p>
-<hr />
-<p><strong>Andrey Bondarev</strong><br />
-Peter the Great St. Petersburg Polytechnic University, Russia</p>
-<hr />
+                <h1 id="examples-neutral-atoms">Examples: Neutral atoms</h1>
+<p><em>The following instructions assume familiarity with the main programs of the <a href="../main" target="_blank">pCI package</a>.</em></p>
+<p>In this section, we describe a method used to construct basis sets for the case of neutral atoms. In these example, we utilize a single <code>HFD.INP</code> to construct the orbitals. </p>
+<h2 id="ac">Ac</h2>
+<pre><code class="language-text">Ac            
+ KL =   0       # (0 - new calculation, 1 - continue)  
+ NS =  36       # number of orbitals     
+ NSO=  24       # number of closed orbitals (in this case only 1s2, 2s2)     
+ Z  =  89.0     # atomic number       
+ AM = 227.00    # atomic mass        
+ JM =  -2.0     # (-2 - average for non-relativistic configuration)       
+ R2 =  60.0     # radius of cavity       
+ kbr= 2         # key for Breit (0 - Coulomb, 1 - Gaunt, 2 - Full Breit)   
+rnuc= 5.7350    # (optional) rms nuclear radius (https://www-nds.iaea.org/radii/)   
+
+        NL   J       QQ     KP   NC
+
+  1     1S (1/2)   2.0000    0    0
+  2     2S (1/2)   2.0000    0    0
+  3     2P (1/2)   2.0000    0    0
+  4     2P (3/2)   4.0000    0    0
+  5     3S (1/2)   2.0000    0    0
+  6     3P (1/2)   2.0000    0    0
+  7     3P (3/2)   4.0000    0    0
+  8     3D (3/2)   4.0000    0    0
+  9     3D (5/2)   6.0000    0    0
+ 10     4S (1/2)   2.0000    0    0
+ 11     4P (1/2)   2.0000    0    0
+ 12     4P (3/2)   4.0000    0    0
+ 13     4D (3/2)   4.0000    0    0
+ 14     4D (5/2)   6.0000    0    0
+ 15     4F (5/2)   6.0000    0    0
+ 16     4F (7/2)   8.0000    0    0
+ 17     5S (1/2)   2.0000    0    0
+ 18     5P (1/2)   2.0000    0    0
+ 19     5P (3/2)   4.0000    0    0
+ 20     5D (3/2)   4.0000    0    0
+ 21     5D (5/2)   6.0000    0    0
+ 22     6S (1/2)   2.0000    0    0
+ 23     6P (1/2)   2.0000    0    0
+ 24     6P (3/2)   4.0000    0    0
+ 25     7S (1/2)   1.0000    0    1
+ 26     6D (3/2)   1.0000    0    2
+ 27     6D (5/2)   0.0000    0    2
+ 28     7P (1/2)   1.0000    0    3
+ 29     7P (3/2)   0.0000    0    3
+ 30     5F (5/2)   1.0000    0    4
+ 31     5F (7/2)   0.0000    0    4
+ 32     8S (1/2)   1.0000    0    5
+ 33     7D (3/2)   1.0000    0    6
+ 34     7D (5/2)   0.0000    0    6
+ 35     8P (1/2)   1.0000    0    7
+ 36     8P (3/2)   0.0000    0    7
+</code></pre>
+<h2 id="sr">Sr</h2>
+<pre><code class="language-text">Sr III
+ KL =   0       # (0 - new calculation, 1 - continue)             
+ NS =  20       # number of orbitals         
+ NSO=  12       # number of closed orbitals (in this case only 1s2, 2s2)        
+ Z  =  38.0     # atomic number             
+ AM =  90.000   # atomic mass                
+ JM =  -2.0     # (-2 - average for non-relativistic configuration)             
+ R2 =  60.0     # radius of cavity             
+ kbr= 0         # key for Breit (0 - Coulomb, 1 - Gaunt, 2 - Full Breit)     
+
+        NL   J       QQ     KP   NC
+
+  1     1S (1/2)   2.0000    0    0
+  2     2S (1/2)   2.0000    0    0
+  3     2P (1/2)   2.0000    0    0
+  4     2P (3/2)   4.0000    0    0
+  5     3S (1/2)   2.0000    0    0
+  6     3P (1/2)   2.0000    0    0
+  7     3P (3/2)   4.0000    0    0
+  8     3D (3/2)   4.0000    0    0
+  9     3D (5/2)   6.0000    0    0
+ 10     4S (1/2)   2.0000    0    0
+ 11     4P (1/2)   2.0000    0    0
+ 12     4P (3/2)   4.0000    0    0
+ 13     5S (1/2)   1.0000    0    1
+ 14     5P (1/2)   1.0000    0    2
+ 15     5P (3/2)   0.0000    0    2
+ 16     4D (3/2)   1.0000    0    3
+ 17     4D (5/2)   0.0000    0    3
+ 18     6S (1/2)   1.0000    0    4
+ 19     6P (1/2)   1.0000    0    5
+ 20     6P (3/2)   0.0000    0    5
+</code></pre>
               
             </div>
           </div>
@@ -163,10 +228,10 @@ Peter the Great St. Petersburg Polytechnic University, Russia</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../contact/" class="btn btn-neutral float-right" title="Contact Us">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../basis_complex/" class="btn btn-neutral float-right" title="Example 2 - another method of creating basis">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../basis_complex/" class="btn btn-neutral" title="Example 2 - another method of creating basis"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../qed/" class="btn btn-neutral" title="Running QED"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -194,10 +259,10 @@ Peter the Great St. Petersburg Polytechnic University, Russia</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../basis_complex/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../qed/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../contact/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../basis_complex/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

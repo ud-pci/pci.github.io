@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Building a basis set - pci</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link href="../css/extra.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Building a basis set";
+    var mkdocs_page_input_path = "basis.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> pci</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <p class="caption"><span class="caption-text">Basics</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Introduction</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../theory/">Theory</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Using pCI</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../ud_instructions/">Working at UD</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">pCI Technical Details</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../main/">pCI code package</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../all-order/">all-order/MBPT code package</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../auxiliary/">Auxiliary programs</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Building a basis set</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#ci-and-all-order-basis-sets">CI and all-order basis sets</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#instructions">Instructions</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Examples</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../qed/">Running QED</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../basis_neutral/">Example 1 - basis set for neutral atoms</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../basis_complex/">Example 2 - another method of creating basis</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">About</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About the Team</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../contact/">Contact Us</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">pci</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>pCI Technical Details &raquo;</li>
+        
+      
+    
+    <li>Building a basis set</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="building-a-basis-for-ciall-order-and-cimbpt">Building a basis for CI+all-order and CI+MBPT</h1>
+<p><em>The following instructions assume familiarity with the main programs of the <a href="../main" target="_blank">pCI package</a>.</em></p>
+<h2 id="ci-and-all-order-basis-sets">CI and all-order basis sets</h2>
+<p>In this section, we describe the general method of building basis sets for the CI+all-order and CI+MBPT code packages. As the CI and all-order code packages were developed separately, they use basis sets in different formats. CI uses <code>HFD.DAT</code> and all-order uses <code>hfspl.1</code> and <code>hfspl.2</code> files. For all-order/CI+all-order/CI+MBPT calculations, most of the basis is constructed via the B-splines. However, one needs too many B-splines to reproduce core and lower valence stats with high enough accuracy for heavier atoms. Therefore, core and a few few valence electron wave functions are taken from Dirac-Hartree-Fock (DHF), and a combined basis with splines is built. More splines will mean larger basis for the CI as well, so we would like to avoid this. There also seems to be an issue with the basis converter codes for larger numbers of B-splines.</p>
+<p>All-order or MBPT calculations involve sums over all possible states. To computer these accurately, one needs a large basis. Generally, we use <code>lmax=6</code> and <code>Nmax=35</code> for each of the partial waves <script type="math/tex"> (1-35s, 2-35p_{1/2},2-35p_{3/2},\dots)</script>. CI does not require such large basis sets and it is reducing for CI computations. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>More splines will mean larger basis for the CI as well, so we would like to avoid this. There also seems to be an issue with the basis converter codes for larger numbers of B-splines.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is a technical issue of CI codes using Taylor expansion inside the nucleus, while all-order codes use a radial grid that starts from the origin. This makes format conversion somewhat imperfect near the nucleus.</p>
+</div>
+<h2 id="instructions">Instructions</h2>
+<p>Now we will discuss the steps to run a CI+all-order or CI+MBPT calculation.</p>
+<ol>
+<li>
+<p>Produce B-splines</p>
+<ul>
+<li>
+<p><code>./tdhf &lt; bas_wj.in</code> - solves DHF equations (reads <code>bas_wj.in</code> and writes <code>fort.1</code>)</p>
+<pre><code>======================================
+bas_wj.in
+======================================
+ Sr   20  38  88   0   0   9  13   1   # this line is FORMATTED in 4's
+#23412341234123412341234123412341234
+# Sr - name (just a label)
+# 20 - number of inputs (core+valence) - must 
+# 38 - Z
+# 88 - AM
+# 0 0 do not change
+# 9 convergence parameter
+# 13 number of first valence shell
+# 1 valence (0 for core only)
+
+#  n kappa (5 or 1 - iteration parameter) 
+   1  -1   5   0.00   # 0.00 - energy guess (leave 0.00 for core)
+   2  -1   5   0.00
+   2   1   5   0.00
+   2  -2   5   0.00
+   3  -1   5   0.00
+   3   1   5   0.00 
+   3  -2   5   0.00
+   3   2   5   0.00
+   3  -3   5   0.00
+   4  -1   5   0.00
+   4   1   5   0.00 
+   4  -2   5   0.00
+
+   5  -1   5  -0.20   # -0.10 or -0.20 good start for neutral
+   5   1   5  -0.20 
+   5  -2   5  -0.20
+   4   2   5  -0.10
+   4  -3   5  -0.10
+   6  -1   5  -0.10
+   6   1   5  -0.10
+   6  -2   5  -0.10
+
+   1.5                      # keep 1.5 or 1, 2.0 for Yb
+   0.0005  0.03  500        # radial grid (0.00005 for HFS) first point, 0.03, max number of points
+   1                        # keep 1, 2 for deformed nuclei 
+   0.0000    4.8665    2.3  # rnuc, cnuc, t - either rnuc=0 (rms?) or cnuc=0
+   0.0                      # don't change this
+</code></pre>
+</li>
+<li>
+<p><code>./nspl40</code> - produces B-spline basis (reads <code>fort.1</code> and writes <code>hfspl.1</code> and <code>hfspl.2</code>)<br />
+<br></p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>bdhf</code> and <code>bspl40</code> are used in place of <code>tdhf</code> and <code>nspl40</code> if Breit corrections are included.</p>
+</div>
+</li>
+<li>
+<p>Run HFD code</p>
+<ul>
+<li><code>./hfd</code> - solves DHF equations (reads <code>HFD.INP</code> and writes <code>HFD.DAT</code>)<br />
+<br></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>hfd</code> can work with partially opened shells, while <code>tdhf</code> and <code>bdhf</code> cannot.</p>
+</div>
+</li>
+<li>
+<p>Convert B-spline basis to HFD.DAT format</p>
+<ul>
+<li><code>./bas_wj</code> - converts <code>hfspl.1</code> and <code>hfspl.2</code> B-spline files and writes <code>WJ.DAT</code><br />
+<br></li>
+</ul>
+</li>
+<li>
+<p>Build combined basis from <code>HFD.DAT</code> and <code>WJ.DAT</code></p>
+<ul>
+<li><code>./bass</code> - reads <code>BASS.INP</code>, <code>HFD.DAT</code> and <code>WJ.DAT</code> and writes new <code>HFD.DAT</code><br />
+<br></li>
+</ul>
+</li>
+<li>
+<p>Convert combined HFD.DAT to format used for all-order and second-order codes</p>
+<ul>
+<li>Erase the files <code>hfspl.1</code> and <code>hfspl.2</code></li>
+<li><code>./bas_x</code> - reads <code>HFD.DAT</code> and writes <code>hfspl.1</code> and <code>hfspl.2</code><br />
+<br></li>
+</ul>
+</li>
+<li>
+<p>Run all-order codes then second-order code</p>
+<ul>
+<li>The following code executions read the files <code>hfspl.1</code> and <code>hfspl.2</code> and generate the files <code>SGC.CON</code> and <code>SCRC.CON</code>.</li>
+<li><code>./allcore-rle-ci &lt;inf.aov &gt;out.core</code></li>
+<li><code>./valsd-rle-cis &lt;inf.aov &gt;out.val</code></li>
+<li><code>./sdvw-rle-cis &lt;inf.aov &gt;out.sdvw</code></li>
+<li><code>./second-cis &lt;inf.vw &gt;out.second.vw</code><br />
+<br></li>
+</ul>
+</li>
+<li>
+<p>Run CI</p>
+<ul>
+<li><code>./add</code></li>
+<li><code>./basc</code></li>
+<li><code>./conf</code></li>
+</ul>
+</li>
+</ol>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../changelog/" class="btn btn-neutral float-right" title="Changelog">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../auxiliary/" class="btn btn-neutral" title="Auxiliary programs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>&copy; Copyright 2021, pCI Development Team.</p>
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../auxiliary/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../changelog/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
