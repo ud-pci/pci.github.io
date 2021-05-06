@@ -68,6 +68,10 @@
                     </li>
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">All-order/MBPT code package</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#all-order-package">All-order package</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mbpt-package">MBPT package</a>
+    </li>
     </ul>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../auxiliary/">Auxiliary programs</a>
@@ -130,6 +134,11 @@
             <div class="section">
               
                 <h1 id="all-ordermbpt-code-package">All-order/MBPT code package</h1>
+<h2 id="all-order-package">All-order package</h2>
+<p>The all-order part of the package calculates corrections to the bare Hamiltonian due to the core shells for the CI code <code>conf</code>. The <em>all-order</em> label refers to inclusion of the large number of terms (second-, third-, fourth-order, etc.) in order-by-order many-body perturbation theory expansion using the iterative solutions until the sufficient numerical convergence is achieved. </p>
+<p>The all-order package consists of three codes: <code>allcore-ci</code>, <code>valsd-ci</code>, and <code>sdvw-ci</code>, which calculates core, core-valence and valence-valence excitations, respectively. These codes store resulting data in <code>SGC.CON</code> (small file) and <code>SCRC.CON</code> (up to a few GB file). The all-order package can be omitted if high precision is not required, leading to a method referred to as CI+MBPT.</p>
+<h2 id="mbpt-package">MBPT package</h2>
+<p>The MBPT part of the package calculates corrections to the bare Hamiltonian due to the core shells using second order MBPT for the CI code <code>conf</code>, but for a much larger part of the Hamiltonian than the all-order code since high accuracy is not required for corrections associated with higher orbitals. The MBPT package consists of the code <code>second-ci</code>, which can be omitted, but then <code>conf</code> will not include electronic correlations associated with any of the core shells. If the all-order calculation was carried out, it will overwrite the second-order results with the all-order results where available. Such overlay of the MBPT and the all-order parts drastically improves the efficiency of the method.</p>
               
             </div>
           </div>
