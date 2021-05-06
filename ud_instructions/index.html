@@ -66,6 +66,12 @@
     <li class="toctree-l2"><a class="reference internal" href="#running-jobs-at-ud">Running Jobs at UD</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#job-scripts">Job scripts</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#serial-job-script">Serial job script</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#parallel-job-script">Parallel job script</a>
+    </li>
+        </ul>
     </li>
         </ul>
     </li>
@@ -78,11 +84,11 @@
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../main/">pCI code package</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../all-order/">all-order/MBPT code package</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../all-order/">All-order/MBPT code package</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../auxiliary/">Auxiliary programs</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../basis/">Building a basis set</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../basis/">Building a basis set for CI+X</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
                     </li>
@@ -164,14 +170,23 @@
 </tbody>
 </table>
 <p>&nbsp;</p>
-<p>More information about the community clusters can be found <a href="http://docs.hpc.udel.edu/" target="_blank">here</a>.  </p>
+<p>More information about the community clusters can be found <em><a href="http://docs.hpc.udel.edu/" target="_blank">here</a></em>.  </p>
 <h2 id="compiling-at-ud">Compiling at UD</h2>
 <p>The computers at UD utilize the VALET system for installing software. We load the cmake and openmpi modules into your environment using the command <code>vpkg_require</code>. </p>
+<pre><code class="language-text">$ vpkg_require intel
+Adding package `intel/2018u4` to your environment
+</code></pre>
 <p>To see what packages have been added to your environment, you can use the <code>vpkg_history</code> command.</p>
+<pre><code class="language-text">$ vpkg_history
+[standard]
+  intel/2018u4
+</code></pre>
 <p>To remove the changes produced by <code>vpkg_require</code>, you can use the <code>vpkg_rollback</code> command.</p>
-<p>The parallel codes are built using the 'CMakeLists.txt' file. </p>
+<pre><code class="language-text">$ vpkg_rollback
+</code></pre>
+<p>The parallel codes are built using the <code>CMakeLists.txt</code> file. </p>
 <p>A Debug build can be done:</p>
-<pre><code>$ ls
+<pre><code class="language-text">$ ls
 pCI
 $ cd pCI
 $ mkdir build-debug
@@ -183,7 +198,7 @@ $ make
 $ make install
 </code></pre>
 <p>An optimized build demands a little more:</p>
-<pre><code>$ cd ..
+<pre><code class="language-text">$ cd ..
 $ mkdir build-opt
 $ cd build-opt
 $ FC=mpifort cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(pwd)/../20200317-opt -DCMAKE_Fortran_FLAGS_RELEASE=&quot;-g -O3 -mcmodel=large -xHost -m64&quot; ..
@@ -197,9 +212,165 @@ $ make install
 </div>
 <h2 id="running-jobs-at-ud">Running Jobs at UD</h2>
 <h3 id="job-scripts">Job scripts</h3>
-<p>It is strongly recommended to use a job script file patterned after the prototypes in <code>/opt/templates</code>. There are <code>README.md</code> files in each subdirectory to explain the use of the templates. </p>
-<p>An example use of an openmpi template to run a parallel <code>conf</code> job is given here. The following job script is valid for usage only in the Caviness and DARWIN community clusters. </p>
-<p>job.qs:</p>
+<p>It is strongly recommended to use a job script file patterned after the prototypes in <code>/opt/templates/</code>. There are <code>README.md</code> files in each subdirectory to explain the use of the templates. The following job scripts are valid for usage only in the Caviness and DARWIN community clusters. </p>
+<h4 id="serial-job-script">Serial job script</h4>
+<p>An serial job script template with full descriptions of capabilities is given here.<br />
+<em><a href="../src/serial.qs">serial.qs</a></em>:</p>
+<pre><code class="language-text">#!/bin/bash -l
+#
+# Sections of this script that can/should be edited are delimited by a
+# [EDIT] tag.  All Slurm job options are denoted by a line that starts
+# with &quot;#SBATCH &quot; followed by flags that would otherwise be passed on
+# the command line.  Slurm job options can easily be disabled in a
+# script by inserting a space in the prefix, e.g. &quot;# SLURM &quot; and
+# reenabled by deleting that space.
+#
+# This is a batch job template for a program using a single processor
+# core/thread (a serial job).
+#
+#SBATCH --ntasks=1
+#
+# [EDIT] All jobs have memory limits imposed.  The default is 1 GB per
+#        CPU allocated to the job.  The default can be overridden either
+#        with a per-node value (--mem) or a per-CPU value (--mem-per-cpu)
+#        with unitless values in MB and the suffixes K|M|G|T denoting
+#        kibi, mebi, gibi, and tebibyte units.  Delete the space between
+#        the &quot;#&quot; and the word SBATCH to enable one of them:
+#
+# SBATCH --mem=8G
+# SBATCH --mem-per-cpu=1024M
+#
+# [EDIT] Each node in the cluster has local scratch disk of some sort
+#        that is always mounted as /tmp.  Per-job and per-step temporary
+#        directories are automatically created and destroyed by the
+#        auto_tmpdir plugin in the /tmp filesystem.  To ensure a minimum
+#        amount of free space on /tmp when your job is scheduled, the
+#        --tmp option can be used; it has the same behavior unit-wise as
+#        --mem and --mem-per-cpu.  Delete the space between the &quot;#&quot; and the
+#        word SBATCH to enable:
+#
+# SBATCH --tmp=24G
+#
+# [EDIT] It can be helpful to provide a descriptive (terse) name for
+#        the job (be sure to use quotes if there's whitespace in the
+#        name):
+#
+#SBATCH --job-name=serial_job
+#
+# [EDIT] The partition determines which nodes can be used and with what
+#        maximum runtime limits, etc.  Partition limits can be displayed
+#        with the &quot;sinfo --summarize&quot; command.
+#
+# SBATCH --partition=standard
+#
+#        To run with priority-access to resources owned by your workgroup,
+#        use the &quot;_workgroup_&quot; partition:
+#
+# SBATCH --partition=_workgroup_
+#
+# [EDIT] The maximum runtime for the job; a single integer is interpreted
+#        as a number of minutes, otherwise use the format
+#
+#          d-hh:mm:ss
+#
+#        Jobs default to the default runtime limit of the chosen partition
+#        if this option is omitted.
+#
+#SBATCH --time=0-02:00:00
+#
+#        You can also provide a minimum acceptable runtime so the scheduler
+#        may be able to run your job sooner.  If you do not provide a
+#        value, it will be set to match the maximum runtime limit (discussed
+#        above).
+#
+# SBATCH --time-min=0-01:00:00
+#
+# [EDIT] By default SLURM sends the job's stdout to the file &quot;slurm-&lt;jobid&gt;.out&quot;
+#        and the job's stderr to the file &quot;slurm-&lt;jobid&gt;.err&quot; in the working
+#        directory.  Override by deleting the space between the &quot;#&quot; and the
+#        word SBATCH on the following lines; see the man page for sbatch for
+#        special tokens that can be used in the filenames:
+#
+# SBATCH --output=%x-%j.out
+# SBATCH --error=%x-%j.out
+#
+# [EDIT] Slurm can send emails to you when a job transitions through various
+#        states: NONE, BEGIN, END, FAIL, REQUEUE, ALL, TIME_LIMIT,
+#        TIME_LIMIT_50, TIME_LIMIT_80, TIME_LIMIT_90, ARRAY_TASKS.  One or more
+#        of these flags (separated by commas) are permissible for the
+#        --mail-type flag.  You MUST set your mail address using --mail-user
+#        for messages to get off the cluster.
+#
+# SBATCH --mail-user='my_address@udel.edu'
+# SBATCH --mail-type=END,FAIL,TIME_LIMIT_90
+#
+# [EDIT] By default we DO NOT want to send the job submission environment
+#        to the compute node when the job runs.
+#
+#SBATCH --export=NONE
+#
+
+#
+# [EDIT] Define a Bash function and set this variable to its
+#        name if you want to have the function called when the
+#        job terminates (time limit reached or job preempted).
+#
+#        PLEASE NOTE:  when using a signal-handling Bash
+#        function, any long-running commands should be prefixed
+#        with UD_EXEC, e.g.
+#
+#                 UD_EXEC mpirun vasp
+#
+#        If you do not use UD_EXEC, then the signals will not
+#        get handled by the job shell!
+#
+#job_exit_handler() {
+#  # Copy all our output files back to the original job directory:
+#  cp * &quot;$SLURM_SUBMIT_DIR&quot;
+#
+#  # Don't call again on EXIT signal, please:
+#  trap - EXIT
+#  exit 0
+#}
+#export UD_JOB_EXIT_FN=job_exit_handler
+
+#
+# [EDIT] By default, the function defined above is registered
+#        to respond to the SIGTERM signal that Slurm sends
+#        when jobs reach their runtime limit or are
+#        preempted.  You can override with your own list of
+#        signals using this variable -- as in this example,
+#        which registers for both SIGTERM and the EXIT
+#        pseudo-signal that Bash sends when the script ends.
+#        In effect, no matter whether the job is terminated
+#        or completes, the UD_JOB_EXIT_FN will be called.
+#
+#export UD_JOB_EXIT_FN_SIGNALS=&quot;SIGTERM EXIT&quot;
+
+#
+# If you have VALET packages to load into the job environment,
+# uncomment and edit the following line:
+#
+#vpkg_require intel/2019
+
+#
+# Do general job environment setup:
+#
+. /opt/shared/slurm/templates/libexec/common.sh
+
+#
+# [EDIT] Add your script statements hereafter, or execute a script or program
+#        using the srun command.
+#
+srun date
+
+</code></pre>
+<p>Once the job script has been set up, you can submit the job using the <code>sbatch</code> command:</p>
+<pre><code class="language-text">sbatch serial.qs
+</code></pre>
+<h4 id="parallel-job-script">Parallel job script</h4>
+<p>An openmpi job script template with full descriptions of capabilities is given here. </p>
+<p><em><a href="../src/openmpi.qs">openmpi.qs</a></em>:  </p>
 <pre><code class="language-text">#!/bin/bash -l
 #
 # Sections of this script that can/should be edited are delimited by a
@@ -247,9 +418,9 @@ $ make install
 #        and add a space between the &quot;#&quot; and the word SBATCH for the ones
 #        you don't want to use.
 #
-# SBATCH --nodes=1
-#SBATCH --ntasks=148
-# SBATCH --tasks-per-node=20
+#SBATCH --nodes=&lt;nhosts&gt;
+#SBATCH --ntasks=&lt;nproc&gt;
+#SBATCH --tasks-per-node=&lt;nproc-per-node&gt;
 #
 # [EDIT] Normally, each MPI worker will not be multithreaded; if each
 #        worker allows thread parallelism, then alter this value to
@@ -264,8 +435,8 @@ $ make install
 #        kibi, mebi, gibi, and tebibyte units.  Delete the space between
 #        the &quot;#&quot; and the word SBATCH to enable one of them:
 #
-# SBATCH --mem=4G
-#SBATCH --mem-per-cpu=8G
+# SBATCH --mem=8G
+# SBATCH --mem-per-cpu=1024M
 #
 # [EDIT] Each node in the cluster has local scratch disk of some sort
 #        that is always mounted as /tmp.  Per-job and per-step temporary
@@ -276,28 +447,41 @@ $ make install
 #        --mem and --mem-per-cpu.  Delete the space between the &quot;#&quot; and the
 #        word SBATCH to enable:
 #
-# SBATCH --tmp=1T
+# SBATCH --tmp=24G
 #
 # [EDIT] It can be helpful to provide a descriptive (terse) name for
-#        the job:
+#        the job (be sure to use quotes if there's whitespace in the
+#        name):
 #
-#SBATCH --job-name=conf
+#SBATCH --job-name=openmpi_job
 #
 # [EDIT] The partition determines which nodes can be used and with what
 #        maximum runtime limits, etc.  Partition limits can be displayed
 #        with the &quot;sinfo --summarize&quot; command.
 #
-#SBATCH --partition=standard
+# SBATCH --partition=standard
+#
+#        To run with priority-access to resources owned by your workgroup,
+#        use the &quot;_workgroup_&quot; partition:
+#
+# SBATCH --partition=_workgroup_
 #
 # [EDIT] The maximum runtime for the job; a single integer is interpreted
-#        as a number of seconds, otherwise use the format
+#        as a number of minutes, otherwise use the format
 #
 #          d-hh:mm:ss
 #
-#        Jobs default to the maximum runtime limit of the chosen partition
+#        Jobs default to the default runtime limit of the chosen partition
 #        if this option is omitted.
 #
-#SBATCH --time=2-00:00:00
+#SBATCH --time=0-02:00:00
+#
+#        You can also provide a minimum acceptable runtime so the scheduler
+#        may be able to run your job sooner.  If you do not provide a
+#        value, it will be set to match the maximum runtime limit (discussed
+#        above).
+#
+# SBATCH --time-min=0-01:00:00
 #
 # [EDIT] By default SLURM sends the job's stdout to the file &quot;slurm-&lt;jobid&gt;.out&quot;
 #        and the job's stderr to the file &quot;slurm-&lt;jobid&gt;.err&quot; in the working
@@ -315,7 +499,7 @@ $ make install
 #        --mail-type flag.  You MUST set your mail address using --mail-user
 #        for messages to get off the cluster.
 #
-# SBATCH --mail-user='ccheung@udel.edu'
+# SBATCH --mail-user='my_address@udel.edu'
 # SBATCH --mail-type=END,FAIL,TIME_LIMIT_90
 #
 # [EDIT] By default we DO NOT want to send the job submission environment
@@ -328,7 +512,7 @@ $ make install
 # [EDIT] Do any pre-processing, staging, environment setup with VALET
 #        or explicit changes to PATH, LD_LIBRARY_PATH, etc.
 #
-vpkg_require openmpi/4.0.5:intel-2020
+vpkg_require openmpi/default
 
 #
 # [EDIT] If you're not interested in how the job environment gets setup,
@@ -386,16 +570,51 @@ vpkg_require openmpi/4.0.5:intel-2020
 #UD_SHOW_MPI_DEBUGGING=YES
 
 #
+# [EDIT] Define a Bash function and set this variable to its
+#        name if you want to have the function called when the
+#        job terminates (time limit reached or job preempted).
+#
+#        PLEASE NOTE:  when using a signal-handling Bash
+#        function, any long-running commands should be prefixed
+#        with UD_EXEC, e.g.
+#
+#                 UD_EXEC mpirun vasp
+#
+#        If you do not use UD_EXEC, then the signals will not
+#        get handled by the job shell!
+#
+#job_exit_handler() {
+#  # Copy all our output files back to the original job directory:
+#  cp * &quot;$SLURM_SUBMIT_DIR&quot;
+#
+#  # Don't call again on EXIT signal, please:
+#  trap - EXIT
+#  exit 0
+#}
+#export UD_JOB_EXIT_FN=job_exit_handler
+
+#
+# [EDIT] By default, the function defined above is registered
+#        to respond to the SIGTERM signal that Slurm sends
+#        when jobs reach their runtime limit or are
+#        preempted.  You can override with your own list of
+#        signals using this variable -- as in this example,
+#        which registers for both SIGTERM and the EXIT
+#        pseudo-signal that Bash sends when the script ends.
+#        In effect, no matter whether the job is terminated
+#        or completes, the UD_JOB_EXIT_FN will be called.
+#
+#export UD_JOB_EXIT_FN_SIGNALS=&quot;SIGTERM EXIT&quot;
+
+#
 # Do standard Open MPI environment setup (networks, etc.)
 #
 . /opt/shared/slurm/templates/libexec/openmpi.sh
-ulimit -s unlimited
-CONF_MAX_BYTES_PER_CPU=$((SLURM_MEM_PER_CPU*1024*1024)) 
-export CONF_MAX_BYTES_PER_CPU
+
 #
 # [EDIT] Execute your MPI program
 #
-${UD_MPIRUN} ./conf
+${UD_MPIRUN} ./my_mpi_program arg1 &quot;arg2 has spaces&quot; arg3
 mpi_rc=$?
 
 #
@@ -409,20 +628,23 @@ exit $mpi_rc
 
 </code></pre>
 <p>Once the job script has been set up, you can submit the job using the <code>sbatch</code> command:</p>
-<pre><code class="language-text">sbatch job.qs
+<pre><code class="language-text">sbatch openmpi.qs
 </code></pre>
 <h2 id="managing-jobs-at-ud">Managing Jobs at UD</h2>
 <p>Once the job has been submitted, you can monitor the status of your job using the <code>squeue</code> command:</p>
-<pre><code class="language-text">squeue -u username
-squeue -p partition_name
+<pre><code class="language-text">squeue -u &lt;username&gt;
+squeue -p &lt;partition_name&gt;
 </code></pre>
 <p>You can also continuously monitor your job by using the <code>watch</code> command:</p>
-<pre><code class="language-text">watch squeue -u username
+<pre><code class="language-text">watch squeue -u &lt;username&gt;
+watch squeue -p &lt;partition_name&gt;
 </code></pre>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>To see the amount of resources available for your job, you can run the <code>squota</code> command. </p>
-</div>
+<p>To see the amount of resources available for your job, you can run the <code>squota</code> command:</p>
+<pre><code class="language-text">squota
+</code></pre>
+<p>To cancel your job, you can run the <code>scancel</code> command:</p>
+<pre><code class="language-text">scancel &lt;job-id&gt;
+</code></pre>
               
             </div>
           </div>

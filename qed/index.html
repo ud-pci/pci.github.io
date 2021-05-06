@@ -66,11 +66,11 @@
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../main/">pCI code package</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../all-order/">all-order/MBPT code package</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../all-order/">All-order/MBPT code package</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../auxiliary/">Auxiliary programs</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../basis/">Building a basis set</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../basis/">Building a basis set for CI+X</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
                     </li>
@@ -140,7 +140,8 @@
 <li>Run <code>sgc</code> to form an empty <code>SGC.CON</code> file</li>
 <li><code>cp HFD.DAT HFD-noQED.DAT</code> - save a copy of <code>HFD.DAT</code> without QED</li>
 <li>
-<p>Create a file <code>qedpot.inp</code> with number corresponding to the variant of the QED potential and the name of the <code>HFD.DAT</code> file</p>
+<p>Create a file <code>qedpot.inp</code> with number corresponding to the variant of the QED potential and the name of the <code>HFD.DAT</code> file.<br />
+<em>Description of sample <a href="../src/qedpot.inp">qedpot.inp</a> file:</em> </p>
 <pre><code>===========================================
 qedpot.inp
 ===========================================
@@ -149,7 +150,8 @@ HFD.DAT     # name of file holding basis set
 </code></pre>
 </li>
 <li>
-<p>Create a file <code>qed.in</code> selecting options</p>
+<p>Create a file <code>qed.in</code> selecting options.<br />
+<em>Description of sample <a href="../src/qedpot.inp">qedpot.inp</a> file:</em> </p>
 <pre><code>===========================================
 qed.in
 ===========================================
@@ -170,7 +172,7 @@ qed.in
 <li>Rename <code>SGCqed.CON</code> to <code>SGC.CON</code></li>
 <li>Run <code>conf</code></li>
 </ol>
-<p>You can also use the following script for steps 3-9, making sure to change inputs relevant to your job.</p>
+<p>You can also use the following <em><a href="../src/batch.qed">batch.qed</a></em> script for steps 3-9, making sure to change inputs relevant to your job. </p>
 <pre><code class="language-text">===========================================
 batch.qed
 ===========================================
