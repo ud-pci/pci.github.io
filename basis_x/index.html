@@ -200,8 +200,13 @@ bas_wj.in
 </code></pre>
 </li>
 <li>
-<p><code>./nspl40 &lt; spl.in</code> - produces B-spline basis (reads <code>fort.1</code> and writes <code>hfspl.1</code> and <code>hfspl.2</code>)<br />
-<br></p>
+<p><code>./nspl40 &lt; spl.in</code> - produces B-spline basis (reads <code>fort.1</code> and writes <code>hfspl.1</code> and <code>hfspl.2</code>).
+   Description of sample <a href="../src/spl.in">spl.in</a> file:  </p>
+<pre><code>   6               # lmax     
+   60.0            # Radius of cavity (same as hfd)                   
+   40 7            # number of spline, order of splines  30/5 40/7 50/9 70/11
+   0.0 0.00 500    # do not change
+</code></pre>
 </li>
 </ul>
 <div class="admonition note">
@@ -223,9 +228,17 @@ bas_wj.in
 <li>
 <p>Convert B-spline basis to HFD.DAT format</p>
 <ul>
-<li><code>./bas_wj</code> - converts <code>hfspl.1</code> and <code>hfspl.2</code> B-spline files and writes <code>WJ.DAT</code><br />
+<li><code>./bas_wj</code> - converts <code>hfspl.1</code> and <code>hfspl.2</code> B-spline files and writes <code>WJ.DAT</code> and <code>BASS.INP</code><br />
 <br></li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are a couple of changes that have to be made to the resulting <code>BASS.INP</code> file:<br />
+1. The line <code>lst= 0s 1# last orbital to be kept in the basis set</code> has to be deleted.<br />
+2. The line <code>orb= 0s 1# first orbital to apply kin.bal.</code> has to be changed to reflect the first orbital not from <code>hfd</code>.<br />
+3. The line <code>orb= 5s 1# first orbital for diagonalization</code> can either be kept or changed to reflect the first orbital not from <code>hfd</code>.<br />
+4. The lines <code>1  0.5001  3  0.5001</code> that include orbitals from <code>hfd</code> have to be changed to <code>1  0.5001</code></p>
+</div>
 </li>
 <li>
 <p>Build combined basis from <code>HFD.DAT</code> and <code>WJ.DAT</code></p>

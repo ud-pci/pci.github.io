@@ -162,10 +162,14 @@ L:   4f14              !# list of basic configurations
 L:   4f13  5p1         !# from which electrons are excited from.
 L:   4f12  5s2         !# the number of configurations listed here
 L:   4f11  5s2   5p1   !# must match the number on the first line 'Ncor= 4'
-
+##  nnlee nnlee nnlee  !# formatting of configurations
+                       !# the numbers nn refer to the principal quantum number
+                       !# the letters l refer to the angular momentum quantum number
+                       !# the numbers ee refer to the occupation of that orbital
    4f  9 14   5s  0  2   5p  0  3   5d  0  2   5f  0  2   5g  0  2  
    6s  0  2   6p  0  2   6d  0  2   6f  0  2   6g  0  2   7s  0  2  
-   7p  0  2   7d  0  2   7f  0  2   7g  0  2                        
+   7p  0  2   7d  0  2   7f  0  2   7g  0  2          
+##nnl ee ee  nnl ee ee  nnl ee ee  nnl ee ee  nnl ee ee  nnl ee ee
 &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; Head of the file CONF.INP &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;
   Ir17+_even            # ion_parity                                                                                                      
   Z = 77.0              # atomic number    
