@@ -200,6 +200,10 @@ Gnuc= 1.07              # gyromagnetic ratio
 <p class="admonition-title">Note</p>
 <p>The second block listing the basic configurations has a specific formatting <code>__nnlee__</code>, where <code>__</code> indicate spaces, <code>nn</code> is the principal quantum number, <code>l</code> is the angular momentum quantum number as a letter (<code>s=0</code>, <code>l=1</code>, <code>d=2</code>, ...), and <code>ee</code> is the number of electrons in that orbital. </p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The order in which the configurations and basis orbitals must be listed identically with those from <code>BASS.INP</code>.</p>
+</div>
 <h2 id="basc-calculating-radial-integrals">basc - calculating radial integrals</h2>
 <p>After the configuration list has been created, the next step is to calculate the radial integrals using the program <code>basc</code>. <code>basc</code> calculates one-electron and two-electron radial integrals, which are used by the <code>conf</code> program to form the Hamiltonian in the CI space. The one-electron radial integrals correspond to the DF potential of the core, and the two-electron radial integrals account for the Coulomb and Breit interactions between the valence electrons. The matrix elements of the Coulomb interaction for the multipolarity <script type="math/tex"> k </script> can be written as
 <script type="math/tex; mode=display">  \langle c,d|V_q^k|a,b\rangle \equiv G_q^k(ca) G_q^k(bd) R_{abcd}^k, </script>
