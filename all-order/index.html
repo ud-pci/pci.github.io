@@ -76,13 +76,13 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../auxiliary/">Auxiliary programs</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../basis/">Building a basis set for CI+X</a>
-                    </li>
                     <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Examples</span></p>
                 <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../basis_x/">Building a basis set for CI+X</a>
+                    </li>
                     <li class="toctree-l1"><a class="reference internal" href="../qed/">Running QED</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../basis_neutral/">Example 1 - basis set for neutral atoms</a>
@@ -137,6 +137,12 @@
 <h2 id="all-order-package">All-order package</h2>
 <p>The all-order part of the package calculates corrections to the bare Hamiltonian due to the core shells for the CI code <code>conf</code>. The <em>all-order</em> label refers to inclusion of the large number of terms (second-, third-, fourth-order, etc.) in order-by-order many-body perturbation theory expansion using the iterative solutions until the sufficient numerical convergence is achieved. </p>
 <p>The all-order package consists of three codes: <code>allcore-ci</code>, <code>valsd-ci</code>, and <code>sdvw-ci</code>, which calculates core, core-valence and valence-valence excitations, respectively. These codes store resulting data in <code>SGC.CON</code> (small file) and <code>SCRC.CON</code> (up to a few GB file). The all-order package can be omitted if high precision is not required, leading to a method referred to as CI+MBPT.</p>
+<p>In general, one would run the all-order codes then second-order code:
+    - The following code executions read the files <code>hfspl.1</code> and <code>hfspl.2</code> and generate the files <code>SGC.CON</code> and <code>SCRC.CON</code>.
+    - <code>./allcore-rle-ci &lt;inf.aov &gt;out.core</code>
+    - <code>./valsd-rle-cis &lt;inf.aov &gt;out.val</code>
+    - <code>./sdvw-rle-cis &lt;inf.aov &gt;out.sdvw</code>
+    - <code>./second-cis &lt;inf.vw &gt;out.second.vw</code>  </p>
 <h2 id="mbpt-package">MBPT package</h2>
 <p>The MBPT part of the package calculates corrections to the bare Hamiltonian due to the core shells using second order MBPT for the CI code <code>conf</code>, but for a much larger part of the Hamiltonian than the all-order code since high accuracy is not required for corrections associated with higher orbitals. The MBPT package consists of the code <code>second-ci</code>, which can be omitted, but then <code>conf</code> will not include electronic correlations associated with any of the core shells. If the all-order calculation was carried out, it will overwrite the second-order results with the all-order results where available. Such overlay of the MBPT and the all-order parts drastically improves the efficiency of the method.</p>
               

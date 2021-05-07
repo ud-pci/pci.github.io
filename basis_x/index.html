@@ -20,7 +20,7 @@
   <script>
     // Current page data
     var mkdocs_page_name = "Building a basis set for CI+X";
-    var mkdocs_page_input_path = "basis.md";
+    var mkdocs_page_input_path = "basis_x.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -63,13 +63,18 @@
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">pCI Technical Details</span></p>
-                <ul class="current">
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../main/">pCI code package</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../all-order/">All-order/MBPT code package</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../auxiliary/">Auxiliary programs</a>
                     </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Examples</span></p>
+                <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">Building a basis set for CI+X</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#ci-and-all-order-basis-sets">CI and all-order basis sets</a>
@@ -78,11 +83,6 @@
     </li>
     </ul>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
-                    </li>
-                </ul>
-                <p class="caption"><span class="caption-text">Examples</span></p>
-                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../qed/">Running QED</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../basis_neutral/">Example 1 - basis set for neutral atoms</a>
@@ -118,7 +118,7 @@
     
       
         
-          <li>pCI Technical Details &raquo;</li>
+          <li>Examples &raquo;</li>
         
       
     
@@ -200,7 +200,7 @@ bas_wj.in
 </code></pre>
 </li>
 <li>
-<p><code>./nspl40</code> - produces B-spline basis (reads <code>fort.1</code> and writes <code>hfspl.1</code> and <code>hfspl.2</code>)<br />
+<p><code>./nspl40 &lt; spl.in</code> - produces B-spline basis (reads <code>fort.1</code> and writes <code>hfspl.1</code> and <code>hfspl.2</code>)<br />
 <br></p>
 </li>
 </ul>
@@ -238,30 +238,11 @@ bas_wj.in
 <p>Convert combined HFD.DAT to format used for all-order and second-order codes</p>
 <ul>
 <li>Erase the files <code>hfspl.1</code> and <code>hfspl.2</code></li>
-<li><code>./bas_x</code> - reads <code>HFD.DAT</code> and writes <code>hfspl.1</code> and <code>hfspl.2</code><br />
-<br></li>
-</ul>
-</li>
-<li>
-<p>Run all-order codes then second-order code</p>
-<ul>
-<li>The following code executions read the files <code>hfspl.1</code> and <code>hfspl.2</code> and generate the files <code>SGC.CON</code> and <code>SCRC.CON</code>.</li>
-<li><code>./allcore-rle-ci &lt;inf.aov &gt;out.core</code></li>
-<li><code>./valsd-rle-cis &lt;inf.aov &gt;out.val</code></li>
-<li><code>./sdvw-rle-cis &lt;inf.aov &gt;out.sdvw</code></li>
-<li><code>./second-cis &lt;inf.vw &gt;out.second.vw</code><br />
-<br></li>
-</ul>
-</li>
-<li>
-<p>Run CI</p>
-<ul>
-<li><code>./add</code></li>
-<li><code>./basc</code></li>
-<li><code>./conf</code></li>
+<li><code>./bas_x</code> - reads <code>HFD.DAT</code> and writes <code>hfspl.1</code> and <code>hfspl.2</code>  </li>
 </ul>
 </li>
 </ol>
+<p>The final <code>hfspl.1</code> and <code>hfspl.2</code> files are the basis set files that can be read from the all-order part of the package.</p>
               
             </div>
           </div>
@@ -269,10 +250,10 @@ bas_wj.in
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../changelog/" class="btn btn-neutral float-right" title="Changelog">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../qed/" class="btn btn-neutral float-right" title="Running QED">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../auxiliary/" class="btn btn-neutral" title="Auxiliary programs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../changelog/" class="btn btn-neutral" title="Changelog"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -300,10 +281,10 @@ bas_wj.in
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../auxiliary/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../changelog/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../changelog/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../qed/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
