@@ -135,16 +135,140 @@
               
                 <h1 id="all-ordermbpt-code-package">All-order/MBPT code package</h1>
 <h2 id="all-order-package">All-order package</h2>
-<p>The all-order part of the package calculates corrections to the bare Hamiltonian due to the core shells for the CI code <code>conf</code>. The <em>all-order</em> label refers to inclusion of the large number of terms (second-, third-, fourth-order, etc.) in order-by-order many-body perturbation theory expansion using the iterative solutions until the sufficient numerical convergence is achieved. </p>
+<p>The all-order part of the package calculates corrections to the bare Hamiltonian due to the core shells for the CI code <code>conf</code>. The <em>all-order</em> label refers to inclusion of the large number of terms (second-, third-, fourth-order, etc.) in order-by-order many-body perturbation theory expansion using the iterative solutions until the sufficient numerical convergence is achieved. This code version implements a variant of the linearized single double coupled-cluster (CC) method. This CC version has been developed specifically for atoms fully utilizing atomic symmetries and capable of being efficiently ran with very large basis sets (over 1000 orbitals), reaching negligible numerical uncertainty associated with the choice of basis set.</p>
 <p>The all-order package consists of three codes: <code>allcore-ci</code>, <code>valsd-ci</code>, and <code>sdvw-ci</code>, which calculates core, core-valence and valence-valence excitations, respectively. These codes store resulting data in <code>SGC.CON</code> (small file) and <code>SCRC.CON</code> (up to a few GB file). The all-order package can be omitted if high precision is not required, leading to a method referred to as CI+MBPT.</p>
-<p>In general, one would run the all-order codes then second-order code:
-    - The following code executions read the files <code>hfspl.1</code> and <code>hfspl.2</code> and generate the files <code>SGC.CON</code> and <code>SCRC.CON</code>.
-    - <code>./allcore-rle-ci &lt;inf.aov &gt;out.core</code>
-    - <code>./valsd-rle-cis &lt;inf.aov &gt;out.val</code>
-    - <code>./sdvw-rle-cis &lt;inf.aov &gt;out.sdvw</code>
-    - <code>./second-cis &lt;inf.vw &gt;out.second.vw</code>  </p>
+<p>The following code executions read the files <code>hfspl.1</code> and <code>hfspl.2</code> and generate the files <code>SGC.CON</code> and <code>SCRC.CON</code>. It also takes in the input file <code>inf.aov</code> and writes the results to the respective <code>out.</code> files.</p>
+<pre><code>./allcore-rle-ci &lt;inf.aov &gt;out.core      # computes Sigma_ma, Sigma_mnab -&gt; writes pair.3 file
+./valsd-rle-cis &lt;inf.aov &gt;out.val        # computes Sigma_mv (and thus Sigma_1, the one-body correcton to the Hamiltonian), Sigma_mnva -&gt; writes val2 and sigma files
+./sdvw-rle-cis &lt;inf.aov &gt;out.sdvw        # computes Sigma_mnvw (Sigma_2, the two-body correction to the Hamiltonian) -&gt; writes pair.vw and sigma1 files
+</code></pre>
+<details><summary>Click here to see a description of inf.aov</summary>
+<p>
+
+
+<pre><code class="language-text">12               # ncore - number of core shells 
+1 -1             # n and kappa of the core shells
+2 -1
+2  1
+2 -2
+3 -1
+3  1
+3 -2
+3  2
+3 -3
+4 -1
+4  1
+4 -2
+35  5            # nmax and lmax in correlation diagram summations   
+0   0            # internal parameters, do not change
+30               # max number of iterations for core
+2 7 1            # Stabilizer code parameters, see below 
+0.d0             # damping factor, not active not zero
+1                # kval (key_en) - key for energies,  see explanation below                          
+24               # nval - number of valence orbitals in list to follow   
+ 5  -1 30        # n and kappa of the valence orbitals, max number of iteration 
+ 6  -1 30
+ 7  -1 30
+ 8  -1 30
+ 5   1 30
+ 6   1 30
+ 7   1 30
+ 8   1 30
+ 5  -2 30
+ 6  -2 30
+ 7  -2 30
+ 8  -2 30
+ 4   2 30
+ 5   2 30
+ 6   2 30
+ 7   2 30
+ 4  -3 30
+ 5  -3 30
+ 6  -3 30
+ 7  -3 30
+ 4   3 30
+ 5   3 30
+ 4  -4 30
+ 5  -4 30 
+
+==============================================================
+Additional explanations:
+2 7 1  # Stabilizer code parameters 
+2 - DIIS method (change to 1 for RLE method)
+7 – number in iterations before stabilizer code runs
+1 - do not change (controls the type of linear algebra code)
+
+</code></pre>
+
+
+</p>  
+</details>
+
+<p>&nbsp;</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is important to always check all output files. In <code>out.core</code> and <code>out.val</code>, check that the core and valence orbitals have converged, respectively. If any cases completed 30 iterations (max) with values slowly drifting up, you can reduce the number of interactions to 3 or 5, and rerun the respective codes. Here, it's important to look at how much energies fluctuated during the first few iterations. In cases of severe divergence, check all inputs for errors. If nothing is found, and the atom/ion with closed d shell, but not p shell, set <code>kval=2</code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>kval</code> controls the values of <script type="math/tex"> \tilde{\epsilon}_v</script> in denominators (see <a href="https://journals.aps.org/pra/abstract/10.1103/PhysRevA.80.012516">Phys. Rev. A 80, 012516 (2009)</a>) for formulas).<br />
+<code>kval=1</code> is the default choice, where <script type="math/tex"> \tilde{\epsilon}_v</script> for all <script type="math/tex"> nl_j </script> is set to the DHF energy of the lowest valence <script type="math/tex"> n </script> for the particular partial wave. For example for Sr, <script type="math/tex"> \tilde{\epsilon}_v</script> for <script type="math/tex"> v=ns </script> is set with the DHF energy of the <script type="math/tex"> 5s </script> state, <script type="math/tex"> v=np_{1/2} </script> is set with the DHF energy of the <script type="math/tex"> 5p_{1/2} </script> state, <script type="math/tex"> v=nd_{3/2} </script> is set with the DHF energy of the <script type="math/tex"> 5d_{3/2} </script> state, and so on.<br />
+<code>kval=2</code> is only used when the all-order valence energies are severely divergent. So far, this was observed with highly-charged ions with filling <script type="math/tex"> p </script>-shell (e.g. Sn-like). By "severe", we mean that the energies begin to diverge after the first or second iteration, immediately driving the correlation energy to be very large. Such a divergence cannot be fixed by a stabilizer. In this case, we have to identify which partial waves diverge and manually change the energies for these orbitals - we set them to the lowest DHF energy of the partial wave for which the all-order converged. For instance, if <script type="math/tex"> s </script> diverges, but <script type="math/tex"> p </script> does not, then set the <script type="math/tex"> ns </script> energies to the lowest <script type="math/tex"> np_{1/2} </script> DHF energies. The rest are left as DHF as in <code>kval=1</code>.<br />
+The format would be as follows:  </p>
+<pre><code>2                           # kval                                         
+3                           # lmax for the input to follow                
+0  -0.28000                 # l=0 energies                                 
+1  -0.22000  -0.22000       # l=1 energies p1/2 p3/2                       
+2  -0.31000  -0.31000       # l=2 energies d3/2 d5/2        
+3  -0.13000  -0.13000       # l=3 energies f5/2 f7/2
+</code></pre>
+</div>
 <h2 id="mbpt-package">MBPT package</h2>
-<p>The MBPT part of the package calculates corrections to the bare Hamiltonian due to the core shells using second order MBPT for the CI code <code>conf</code>, but for a much larger part of the Hamiltonian than the all-order code since high accuracy is not required for corrections associated with higher orbitals. The MBPT package consists of the code <code>second-ci</code>, which can be omitted, but then <code>conf</code> will not include electronic correlations associated with any of the core shells. If the all-order calculation was carried out, it will overwrite the second-order results with the all-order results where available. Such overlay of the MBPT and the all-order parts drastically improves the efficiency of the method.</p>
+<p>The MBPT part of the package calculates corrections to the bare Hamiltonian due to the core shells using second order MBPT for the CI code <code>conf</code>, but for a much larger part of the Hamiltonian than the all-order code since high accuracy is not required for corrections associated with higher orbitals.<br />
+The MBPT package consists of a single code <code>second-cis</code>, which can be omitted, but then <code>conf</code> will not include electronic correlations associated with any of the core shells. If the all-order calculation was carried out, it will overwrite the second-order results with the all-order results where available. Such overlay of the MBPT and the all-order parts drastically improves the efficiency of the method.</p>
+<p>The following code execution reads the files <code>hfspl.1</code>, <code>hfspl.2</code> and <code>HFD.DAT</code> (to read the list of orbitals), and writes the files <code>SGC.CON</code> and <code>SCRC.CON</code> used by <code>conf</code>. It also takes in the input file <code>inf.vw</code> and writes the results to the respective <code>out.sdvw</code> files.</p>
+<pre><code> ./second-cis &lt;inf.vw &gt;out.second.vw   # writes SGC.CON and SCRC.CON files
+</code></pre>
+<details><summary>Click here to see a description of inf.vw</summary>
+<p>
+
+
+<pre><code class="language-text">12               # ncore - number of core shells 
+1 -1             # n and kappa of the core shells
+2 -1
+2  1
+2 -2
+3 -1
+3  1
+3 -2
+3  2
+3 -3
+4 -1
+4  1
+4 -2
+35  5            # nmax and lmax in correlation diagram summations   
+195              # Nmax  (max_orb) # of orbitals (from BASS.INPT) for how many Sigmas to calculate
+3                # Lmax (lvmax) for how many Sigmas to calculate, supersedes Nmax. Maybe best to set to 4 when 4f is important
+ 9               # Kmax (kvmax) for higest partial wave for Sigma2 S_Kmax(ijkl). May increase for f shell cases
+ 195 100         # nav1 nav - maximum average of orbitals to calculate Sigma for nav1=(i+j)/2 for Sigma(ij) and nav=(i+j+k+l)/4 for Sigma_K(ijkl)
+0                # if just second order, 1 to read all-order input from PAIR.VW and sigma1
+1                # kval, set the same as in the all-order, see explanations of inf.aov
+
+==============================================================
+Additional explanations about Sigma_1 and Sigma_2 restrictions:
+(1) Put the first number (Sigma 1) to be the last orbital you plan to list in ADD.INP. Look up the number in BASS.INP and add the number of core shells. Here, the last orbital to be included in conf is 21d5/2, so the number is 195. 
+Example: Last orbital in BASS.INP:
+183  2.1201  3  2.1201      # Here, the last orbital to be included in conf is 21d5/2, so the number is 183+12 = 195
+Note: this is inputted twice, keep it the same. 
+(2) Set 100 as the second value. This was tested a while ago, can increase.
+
+</code></pre>
+
+
+</p>  
+</details>
+
+<p>&nbsp;</p>
               
             </div>
           </div>

@@ -70,6 +70,8 @@
                     </li>
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">Auxiliary programs</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#bdhfa-dirac-hartree-fock-code">bdhfA - Dirac-Hartree-Fock code</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#con_cut-truncating-configuration-lists">con_cut - truncating configuration lists</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#merge_ci-merging-configuration-lists">merge_ci - merging configuration lists</a>
@@ -78,7 +80,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#qed_pot_conf-">qed_pot_conf -</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#sortjjj-converts-parallel-confjjj-to-serial-confjjj">sortjjj - converts parallel CONF.JJJ to serial CONF.JJJ</a>
+    <li class="toctree-l2"><a class="reference internal" href="#sort-converts-parallel-confjjj-to-serial-confjjj">sort - converts parallel CONF.JJJ to serial CONF.JJJ</a>
     </li>
     </ul>
                     </li>
@@ -141,6 +143,17 @@
               
                 <h1 id="auxiliary-programs">Auxiliary programs</h1>
 <p>It is sometimes useful to combine two configuration lists. Here, we describe an auxiliary codes <code>con_cut</code> which truncates a configuration list, and <code>merge_ci</code> which merges two configuration lists.</p>
+<h2 id="bdhfa-dirac-hartree-fock-code">bdhfA - Dirac-Hartree-Fock code</h2>
+<p><code>bdhfA</code> can be used in place of <code>bdhf</code> to make a B-spline basis set.<br />
+    <details><summary>Click here to see a description of a minimum <a href="../src/cs.dat" download>cs.dat</a>.</summary></p>
+<pre><code class="language-text">1
+1
+Cs 
+1s 2s 2p 3s 3p 3d 4s 4p 4d 5s 5p 
+==========
+7 70 9 220.0
+</code></pre>
+<p></details>  </p>
 <h2 id="con_cut-truncating-configuration-lists">con_cut - truncating configuration lists</h2>
 <p><code>con_cut</code> is used to truncate a configuration list to only hold all configurations with weights above a user-specified cutoff. This program outputs the file <code>CONF_CUT.RES</code>, which can be used as a new <code>CONF.INP</code> file. The configurations in <code>CONF_CUT.RES</code> are also listed in order of descending weights, so the most important configurations are at the top of the list. You can copy the top configurations to your <code>ADD.INP</code> file and reconstruct a new configuration list with the top configurations as basic configurations, or use <code>merge_ci</code> to put the top configurations in another <code>CONF.INP</code> file.</p>
 <h2 id="merge_ci-merging-configuration-lists">merge_ci - merging configuration lists</h2>
@@ -166,8 +179,8 @@
 <li>QEDPOT</li>
 <li>Semi-empirical approach</li>
 </ol>
-<h2 id="sortjjj-converts-parallel-confjjj-to-serial-confjjj">sortjjj - converts parallel CONF.JJJ to serial CONF.JJJ</h2>
-<p><code>sortjjj.py</code> is a python program that sorts the matrix elements of the operator <script type="math/tex"> \bm{J^2} </script> in order of ascending index (as done in the serial version of the <code>conf</code> program). This program takes in the file <code>CONF.JJJ</code> and returns the file <code>CONFsorted.JJJ</code>. However, there is one change made to the file. There is an additional integer at the start of the file that stores the total number of matrix elements. </p>
+<h2 id="sort-converts-parallel-confjjj-to-serial-confjjj">sort - converts parallel CONF.JJJ to serial CONF.JJJ</h2>
+<p><code>sort.py</code> is a python program that sorts the matrix elements of the operator <script type="math/tex"> J^2 </script> in order of ascending index (as done in the serial version of the <code>conf</code> program). This program takes in the parallel file <code>CONF.JJJ</code> or <code>CONF.HIJ</code> and returns a serial version of the inputted file. However, there is one change made to the file. There is an additional integer at the start of the file that stores the total number of matrix elements. </p>
               
             </div>
           </div>

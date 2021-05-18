@@ -302,13 +302,14 @@ Gnuc= 1.07              # gyromagnetic ratio
 </div>
 <p>In the <code>CONF.INP</code> file shown above, we include 481 relativistic configurations in the CI space, and 1132 relativistic configurations in the PT space (if <code>conf_pt</code> is to be used after <code>conf</code>).</p>
 <h2 id="dtm-density-transition-matrix">dtm - density transition matrix</h2>
-<p>The <code>dtm</code> program calculates matrix elements of one-electron operators between many-electron states, under the density (or transition) matrix formalism. This formalism allows us to express the matrix elements between many-electron states via one-electron matrix elements. The <code>dtm</code> program forms these reduced density (or transition) matrices and calculates the reduced matrix elements. The following quantities can be calculated from this program:
-- electron g-factors
+<p>The <code>dtm</code> program calculates matrix elements of one-electron operators between many-electron states, under the density (or transition) matrix formalism. This formalism allows us to express the matrix elements between many-electron states via one-electron matrix elements. The <code>dtm</code> program forms these reduced density (or transition) matrices and calculates the reduced matrix elements. The following quantities can be calculated from this program:<br />
+- electron g-factors<br />
 - magnetic dipole and electronic quadrupole hyperfine structure constants <script type="math/tex"> A </script> and <script type="math/tex"> B </script>
-- electric (<script type="math/tex"> Ek </script>) and magnetic (<script type="math/tex"> Mk </script>) multipole transition amplitudes, where <script type="math/tex"> k = 1,2,3 </script> corresponds to the dipole, quadrupole, and octupole transitions
-- nuclear spin independent parity nonconserving (PNC) amplitude
-- amplitude of the electron interaction with the P-odd nuclear anapole moment (AM)
-- P, T-odd interaction of the dipole electric dipole moment
+<br />
+- electric (<script type="math/tex"> Ek </script>) and magnetic (<script type="math/tex"> Mk </script>) multipole transition amplitudes, where <script type="math/tex"> k = 1,2,3 </script> corresponds to the dipole, quadrupole, and octupole transitions<br />
+- nuclear spin independent parity nonconserving (PNC) amplitude<br />
+- amplitude of the electron interaction with the P-odd nuclear anapole moment (AM)<br />
+- P, T-odd interaction of the dipole electric dipole moment<br />
 - nucleus magnetic quadrupole moment</p>
 <p>This program begins by reading the file <code>CONF.INP</code> for system parameters and the list of configurations. Next, basis radial orbitals are read from the file <code>CONF.DAT</code>, and radial integrals for all operators are calculated and written to the file <code>DTM.INT</code>. If this file already exists, <code>dtm</code> uses it and does not recalculate the radial integrals. </p>
 <p>For the diagonal matrix elements, the list of determinants and eigenvectors corresponding to the state of interest are read from the files <code>CONF.DET</code> and <code>CONF.XIJ</code>, respectively. For the non-diagonal matrix elements, the initial state is read from the file <code>CONF.DET</code> and <code>CONF.XIJ</code>, and the final state is read from the files <code>CONF1.DET</code> and <code>CONF1.XIJ</code>. The results of the diagonal and non-diagonal matrix elements are written to the files <code>DM.RES</code> and <code>TM.RES</code>, respectively. </p>

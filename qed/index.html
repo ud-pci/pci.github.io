@@ -139,30 +139,18 @@
 <li>Construct basis set by running <code>hfd</code> and <code>bass</code> to obtain <code>HFD.DAT</code></li>
 <li>Run <code>sgc</code> to form an empty <code>SGC.CON</code> file</li>
 <li><code>cp HFD.DAT HFD-noQED.DAT</code> - save a copy of <code>HFD.DAT</code> without QED</li>
-<li>
-<p>Create a file <code>qedpot.inp</code> with number corresponding to the variant of the QED potential and the name of the <code>HFD.DAT</code> file.<br />
-<em>Description of sample <a href="../src/qedpot.inp">qedpot.inp</a> file:</em> </p>
-<pre><code>===========================================
-qedpot.inp
-===========================================
-1           # kvar=1-5, Variant of QED potential
-HFD.DAT     # name of file holding basis set
-</code></pre>
-</li>
-<li>
-<p>Create a file <code>qed.in</code> selecting options.<br />
-<em>Description of sample <a href="../src/qed.in">qed.in</a> file:</em> </p>
-<pre><code>===========================================
-qed.in
-===========================================
-1   # 1 for general diagonalization, 2 for first-order
-1   # 1 for no QED, 2 for QED
-2   # 0 for Coulomb, 1 for Gaunt, 2 for Full Breit
-</code></pre>
-</li>
-<li>
-<p>Loop until convergence:</p>
-<ul>
+<li>Create a file <code>qedpot.inp</code> with number corresponding to the variant of the QED potential and the name of the <code>HFD.DAT</code> file.<br />
+    <details><summary>Click here to see a description of <a href="../src/qedpot.inp" download>qedpot.inp</a>.</summary>
+    <pre><code>1            # kvar=1-5, Variant of QED potential
+HFD.DAT      # name of file holding basis set</code></pre>
+</details><br></li>
+<li>Create a file <code>qed.in</code> selecting options.<br />
+    <details><summary>Click here to see a description of <a href="../src/qed.in" download>qed.in</a>.</summary>
+        <pre><code>1    # 1 for general diagonalization, 2 for first-order
+        1   # 1 for no QED, 2 for QED
+        2   # 0 for Coulomb, 1 for Gaunt, 2 for Full Breit</code></pre>
+</details><br></li>
+<li>Loop until convergence:<ul>
 <li>Run <code>qedpot_conf</code> to construct selected QED potential</li>
 <li>Run <code>qed_rot</code> to rotate orbitals to diagonalize Hamiltonian with QED corrections  </li>
 </ul>
@@ -172,11 +160,10 @@ qed.in
 <li>Rename <code>SGCqed.CON</code> to <code>SGC.CON</code></li>
 <li>Run <code>conf</code></li>
 </ol>
-<p>You can also use the following <em><a href="../src/batch.qed">batch.qed</a></em> script for steps 3-9, making sure to change inputs relevant to your job. </p>
-<pre><code class="language-text">===========================================
-batch.qed
-===========================================
-#! /bin/bash -fe
+<details><summary>You can also use the following <a href="../src/batch.qed" download>batch.qed</a> script for steps 3-9, making sure to change inputs relevant to your job.</summary>
+   <p>
+
+<pre><code class="language-text">#! /bin/bash -fe
 kvar=1  # variant of QED potential
 bin='./'
 qedpot=$bin'qedpot_conf'
@@ -210,9 +197,12 @@ done
 cp SGC.CON SCG-noQED.CON
 ./qedpot_conf &gt;qp.res 
 cp SGCqed.CON SGC.CON
-#
 #####################################
 </code></pre>
+
+    </p>
+    </details>
+<p>&nbsp;</p>
               
             </div>
           </div>
