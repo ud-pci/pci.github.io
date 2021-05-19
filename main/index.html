@@ -78,6 +78,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#dtm-density-transition-matrix">dtm - density transition matrix</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ine-polarizabilities">ine - polarizabilities</a>
+    </li>
     </ul>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../all-order/">All-order/MBPT code package</a>
@@ -313,6 +315,51 @@ Gnuc= 1.07              # gyromagnetic ratio
 - nucleus magnetic quadrupole moment</p>
 <p>This program begins by reading the file <code>CONF.INP</code> for system parameters and the list of configurations. Next, basis radial orbitals are read from the file <code>CONF.DAT</code>, and radial integrals for all operators are calculated and written to the file <code>DTM.INT</code>. If this file already exists, <code>dtm</code> uses it and does not recalculate the radial integrals. </p>
 <p>For the diagonal matrix elements, the list of determinants and eigenvectors corresponding to the state of interest are read from the files <code>CONF.DET</code> and <code>CONF.XIJ</code>, respectively. For the non-diagonal matrix elements, the initial state is read from the file <code>CONF.DET</code> and <code>CONF.XIJ</code>, and the final state is read from the files <code>CONF1.DET</code> and <code>CONF1.XIJ</code>. The results of the diagonal and non-diagonal matrix elements are written to the files <code>DM.RES</code> and <code>TM.RES</code>, respectively. </p>
+<p><code>dtm</code> takes in as input the input file <code>dtm.in</code>:</p>
+<pre><code>2            # 1 for DM (as g-factor or hyperfine), 2 for transitions
+1  1 12      # from 1st even level to 1st-12th odd levels
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some <script type="math/tex"> 3J </script>-coefficients might be zero in some cases, such as trying to compute <script type="math/tex"> E1 </script> matrix element for  <script type="math/tex"> 5s^2\, {}^1S_0 \rightarrow 5s5p\,{}^3P_1 </script>. This will fail if the odd run had <script type="math/tex"> J=0 </script>, <script type="math/tex"> M_J=0 </script>. You would need to have an odd run with <script type="math/tex"> J=1 </script>, <script type="math/tex"> M_J=1 </script>
+</p>
+</div>
+<h2 id="ine-polarizabilities">ine - polarizabilities</h2>
+<p>The <code>ine</code> program calculates static and dynamic polarizabilities of specified atomic levels. <code>ine</code> only gives the valence polarizability. Core polarizability needs to be computed separately with a different code. The code will give both scalar and tensor polarizabilities if the tensor polarizability is not zero, but not the vector polarizability. There are several version of the code, but for now we will use <code>ine_dyn_E28</code>. This program requires several input files from previously ran <code>conf</code> and <code>dtm</code> programs, including <code>CONF.DET</code> and <code>CONF.XIJ</code> of the parity of the level of interest (renamed to <code>CONF0.DET</code> and <code>CONF0.XIJ</code>), <code>CONF.INP</code>, <code>CONF.XIJ</code>, <code>CONF.HIJ</code>, and <code>CONF.JJJ</code> of the opposite parity, and the file <code>DTM.INT</code> from <code>dtm</code>. </p>
+<p>For example, if we want to calculate polarizabilities for an even state:</p>
+<pre><code>cp CONFeven.DET CONF0.DET
+cp CONFeven.XIJ CONF0.XIJ
+
+cp CONFodd.INP CONF.INP
+cp CONFodd.XIJ CONF.XIJ
+cp CONFodd.HIJ CONF.HIJ
+cp CONFodd.JJJ CONF.JJJ
+</code></pre>
+<p><code>ine_dyn_E28</code> can either solve the inhomogeneous equation iteratively by solving for a smaller matrix first, or by direct matrix inversion via the LAPACK library. It is controlled by the parameter <code>IP1</code> in <code>conf.par</code>:</p>
+<pre><code>PARAMETER(IP1   =  15000,  ! Nd1    - number of determinants for direct diagonalization
+</code></pre>
+<p>This parameter can be set to be larger than the number of determinants in your problem if you don't want the program to iterate at all. The problem with iterations is that they diverge in many cases for dynamic polarizabilities. However, the problem with the direct solution is that it takes a long time to run (about 20-30 min even for 10, 000 determinants).</p>
+<p>The program can be executed via the command:</p>
+<pre><code>./ine_dyn_E28 &lt;inf.dtm
+</code></pre>
+<details><summary>Click here to see a description of <a href="../src/inf.dtm" download>inf.dtm</a>.</summary>
+    <pre><code>0  # start new computation
+1  # calculate polarizability of the first level
+0  # 0 for static, omega for dynamic
+</code></pre>
+</details>
+<p><br></p>
+<p>For dynamic polarizability, you need to run <code>ine_dyn_E28</code> twice: once with <script type="math/tex"> +\omega </script> and once with <script type="math/tex"> -\omega </script>. For example, if one needs the polarizability for <script type="math/tex"> \lambda=800 \text{ nm} </script>, compute <script type="math/tex"> \omega </script> in a.u.:<br />
+<script type="math/tex"> \omega=1.0\times 10^7 / (au\times\lambda) = 0.056954191</script>, where <script type="math/tex"> au=219474.6313705 </script>.<br />
+Run <code>ine_dyn_E28</code> twice, once with <pre><code>0
+1
+0.056954191 
+</code></pre>
+and once with <pre><code>0
+1
+-0.056954191 
+</code></pre>
+then average the two results. </p>
               
             </div>
           </div>
