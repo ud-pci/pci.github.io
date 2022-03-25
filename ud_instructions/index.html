@@ -14,7 +14,7 @@
 
   <link rel="stylesheet" href="../css/theme.css" />
   <link rel="stylesheet" href="../css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
   <link href="../css/extra.css" rel="stylesheet" />
   
   <script>
@@ -26,9 +26,8 @@
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
   <script src="../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
-  
 </head>
 
 <body class="wy-body-for-nav" role="document">
@@ -42,7 +41,7 @@
         <a href=".." class="icon icon-home"> pci</a>
         <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
@@ -142,6 +141,7 @@
   
   <hr/>
 </div>
+
           <div role="main">
             <div class="section">
               
@@ -214,15 +214,15 @@ $ make install
 <h3 id="job-scripts">Job scripts</h3>
 <p>It is strongly recommended to use a job script file patterned after the prototypes in <code>/opt/templates/</code>. There are <code>README.md</code> files in each subdirectory to explain the use of the templates. The following job scripts are valid for usage only in the Caviness and DARWIN community clusters. </p>
 <h4 id="serial-job-script">Serial job script</h4>
-<p>An serial job script template with full descriptions of capabilities is given here.<br />
-<em><a href="../src/serial.qs">serial.qs</a></em>:</p>
-<pre><code class="language-text">#!/bin/bash -l
+<p>An serial job script template with full descriptions of capabilities is given here.  </p>
+<details><summary>Click here to see a description of <a href="../src/serial.qs" download>serial.qs</a>.</summary>
+    <pre><code>#!/bin/bash -l
 #
 # Sections of this script that can/should be edited are delimited by a
 # [EDIT] tag.  All Slurm job options are denoted by a line that starts
-# with &quot;#SBATCH &quot; followed by flags that would otherwise be passed on
+# with "#SBATCH " followed by flags that would otherwise be passed on
 # the command line.  Slurm job options can easily be disabled in a
-# script by inserting a space in the prefix, e.g. &quot;# SLURM &quot; and
+# script by inserting a space in the prefix, e.g. "# SLURM " and
 # reenabled by deleting that space.
 #
 # This is a batch job template for a program using a single processor
@@ -235,7 +235,7 @@ $ make install
 #        with a per-node value (--mem) or a per-CPU value (--mem-per-cpu)
 #        with unitless values in MB and the suffixes K|M|G|T denoting
 #        kibi, mebi, gibi, and tebibyte units.  Delete the space between
-#        the &quot;#&quot; and the word SBATCH to enable one of them:
+#        the "#" and the word SBATCH to enable one of them:
 #
 # SBATCH --mem=8G
 # SBATCH --mem-per-cpu=1024M
@@ -246,7 +246,7 @@ $ make install
 #        auto_tmpdir plugin in the /tmp filesystem.  To ensure a minimum
 #        amount of free space on /tmp when your job is scheduled, the
 #        --tmp option can be used; it has the same behavior unit-wise as
-#        --mem and --mem-per-cpu.  Delete the space between the &quot;#&quot; and the
+#        --mem and --mem-per-cpu.  Delete the space between the "#" and the
 #        word SBATCH to enable:
 #
 # SBATCH --tmp=24G
@@ -259,12 +259,12 @@ $ make install
 #
 # [EDIT] The partition determines which nodes can be used and with what
 #        maximum runtime limits, etc.  Partition limits can be displayed
-#        with the &quot;sinfo --summarize&quot; command.
+#        with the "sinfo --summarize" command.
 #
 # SBATCH --partition=standard
 #
 #        To run with priority-access to resources owned by your workgroup,
-#        use the &quot;_workgroup_&quot; partition:
+#        use the "_workgroup_" partition:
 #
 # SBATCH --partition=_workgroup_
 #
@@ -285,9 +285,9 @@ $ make install
 #
 # SBATCH --time-min=0-01:00:00
 #
-# [EDIT] By default SLURM sends the job's stdout to the file &quot;slurm-&lt;jobid&gt;.out&quot;
-#        and the job's stderr to the file &quot;slurm-&lt;jobid&gt;.err&quot; in the working
-#        directory.  Override by deleting the space between the &quot;#&quot; and the
+# [EDIT] By default SLURM sends the job's stdout to the file "slurm-<jobid>.out"
+#        and the job's stderr to the file "slurm-<jobid>.err" in the working
+#        directory.  Override by deleting the space between the "#" and the
 #        word SBATCH on the following lines; see the man page for sbatch for
 #        special tokens that can be used in the filenames:
 #
@@ -326,7 +326,7 @@ $ make install
 #
 #job_exit_handler() {
 #  # Copy all our output files back to the original job directory:
-#  cp * &quot;$SLURM_SUBMIT_DIR&quot;
+#  cp * "$SLURM_SUBMIT_DIR"
 #
 #  # Don't call again on EXIT signal, please:
 #  trap - EXIT
@@ -345,7 +345,7 @@ $ make install
 #        In effect, no matter whether the job is terminated
 #        or completes, the UD_JOB_EXIT_FN will be called.
 #
-#export UD_JOB_EXIT_FN_SIGNALS=&quot;SIGTERM EXIT&quot;
+#export UD_JOB_EXIT_FN_SIGNALS="SIGTERM EXIT"
 
 #
 # If you have VALET packages to load into the job environment,
@@ -362,22 +362,22 @@ $ make install
 # [EDIT] Add your script statements hereafter, or execute a script or program
 #        using the srun command.
 #
-srun date
+srun date</code></pre>
+</details>
 
-</code></pre>
 <p>Once the job script has been set up, you can submit the job using the <code>sbatch</code> command:</p>
 <pre><code class="language-text">sbatch serial.qs
 </code></pre>
 <h4 id="parallel-job-script">Parallel job script</h4>
 <p>An openmpi job script template with full descriptions of capabilities is given here. </p>
-<p><em><a href="../src/openmpi.qs">openmpi.qs</a></em>:  </p>
-<pre><code class="language-text">#!/bin/bash -l
+<details><summary>Click here to see a description of <a href="../src/openmpi.qs" download>openmpi.qs</a>.</summary>
+    <pre><code>#!/bin/bash -l
 #
 # Sections of this script that can/should be edited are delimited by a
 # [EDIT] tag.  All Slurm job options are denoted by a line that starts
-# with &quot;#SBATCH &quot; followed by flags that would otherwise be passed on
+# with "#SBATCH " followed by flags that would otherwise be passed on
 # the command line.  Slurm job options can easily be disabled in a
-# script by inserting a space in the prefix, e.g. &quot;# SLURM &quot; and
+# script by inserting a space in the prefix, e.g. "# SLURM " and
 # reenabled by deleting that space.
 #
 # This is a batch job template for a program using multiple processor
@@ -393,34 +393,34 @@ srun date
 #        is still permissible under Slurm by providing ONLY the
 #        --ntasks option:
 #
-#             #SBATCH --ntasks=&lt;nproc&gt;
+#             #SBATCH --ntasks=<nproc>
 #
 #        To limit the number of nodes used to satisfy the distribution
-#        of &lt;nproc&gt; workers, the --nodes option can be used in addition
+#        of <nproc> workers, the --nodes option can be used in addition
 #        to --ntasks:
 #
-#             #SBATCH --nodes=&lt;nhosts&gt;
-#             #SBATCH --ntasks=&lt;nproc&gt;
+#             #SBATCH --nodes=<nhosts>
+#             #SBATCH --ntasks=<nproc>
 #
-#        in which case, &lt;nproc&gt; workers will be allocated to &lt;nhosts&gt;
+#        in which case, <nproc> workers will be allocated to <nhosts>
 #        nodes in round-robin fashion.
 #
 #        For a uniform distribution of workers the --tasks-per-node
 #        option should be used with the --nodes option:
 #
-#             #SBATCH --nodes=&lt;nhosts&gt;
-#             #SBATCH --tasks-per-node=&lt;nproc-per-node&gt;
+#             #SBATCH --nodes=<nhosts>
+#             #SBATCH --tasks-per-node=<nproc-per-node>
 #
 #        The --ntasks option can be omitted in this case and will be
-#        implicitly equal to &lt;nhosts&gt; * &lt;nproc-per-node&gt;.
+#        implicitly equal to <nhosts> * <nproc-per-node>.
 #
 #        Given the above information, set the options you want to use
-#        and add a space between the &quot;#&quot; and the word SBATCH for the ones
+#        and add a space between the "#" and the word SBATCH for the ones
 #        you don't want to use.
 #
-#SBATCH --nodes=&lt;nhosts&gt;
-#SBATCH --ntasks=&lt;nproc&gt;
-#SBATCH --tasks-per-node=&lt;nproc-per-node&gt;
+#SBATCH --nodes=<nhosts>
+#SBATCH --ntasks=<nproc>
+#SBATCH --tasks-per-node=<nproc-per-node>
 #
 # [EDIT] Normally, each MPI worker will not be multithreaded; if each
 #        worker allows thread parallelism, then alter this value to
@@ -433,7 +433,7 @@ srun date
 #        with a per-node value (--mem) or a per-CPU value (--mem-per-cpu)
 #        with unitless values in MB and the suffixes K|M|G|T denoting
 #        kibi, mebi, gibi, and tebibyte units.  Delete the space between
-#        the &quot;#&quot; and the word SBATCH to enable one of them:
+#        the "#" and the word SBATCH to enable one of them:
 #
 # SBATCH --mem=8G
 # SBATCH --mem-per-cpu=1024M
@@ -444,7 +444,7 @@ srun date
 #        auto_tmpdir plugin in the /tmp filesystem.  To ensure a minimum
 #        amount of free space on /tmp when your job is scheduled, the
 #        --tmp option can be used; it has the same behavior unit-wise as
-#        --mem and --mem-per-cpu.  Delete the space between the &quot;#&quot; and the
+#        --mem and --mem-per-cpu.  Delete the space between the "#" and the
 #        word SBATCH to enable:
 #
 # SBATCH --tmp=24G
@@ -457,12 +457,12 @@ srun date
 #
 # [EDIT] The partition determines which nodes can be used and with what
 #        maximum runtime limits, etc.  Partition limits can be displayed
-#        with the &quot;sinfo --summarize&quot; command.
+#        with the "sinfo --summarize" command.
 #
 # SBATCH --partition=standard
 #
 #        To run with priority-access to resources owned by your workgroup,
-#        use the &quot;_workgroup_&quot; partition:
+#        use the "_workgroup_" partition:
 #
 # SBATCH --partition=_workgroup_
 #
@@ -483,9 +483,9 @@ srun date
 #
 # SBATCH --time-min=0-01:00:00
 #
-# [EDIT] By default SLURM sends the job's stdout to the file &quot;slurm-&lt;jobid&gt;.out&quot;
-#        and the job's stderr to the file &quot;slurm-&lt;jobid&gt;.err&quot; in the working
-#        directory.  Override by deleting the space between the &quot;#&quot; and the
+# [EDIT] By default SLURM sends the job's stdout to the file "slurm-<jobid>.out"
+#        and the job's stderr to the file "slurm-<jobid>.err" in the working
+#        directory.  Override by deleting the space between the "#" and the
 #        word SBATCH on the following lines; see the man page for sbatch for
 #        special tokens that can be used in the filenames:
 #
@@ -534,22 +534,22 @@ vpkg_require openmpi/default
 #UD_DISABLE_CPU_AFFINITY=YES
 
 #
-# [EDIT] MPI ranks are distributed &lt;nodename&gt;(&lt;rank&gt;:&lt;socket&gt;.&lt;core&gt;,..)
+# [EDIT] MPI ranks are distributed <nodename>(<rank>:<socket>.<core>,..)
 #
 #    CORE    sequentially to all allocated cores on each allocated node in
 #            the sequence they occur in SLURM_NODELIST (this is the default)
 #
-#              -N2 -n4 =&gt; n000(0:0.0,1:0.1,2:0.2,3:0.3); n001(4:0.0,5:0.1,6:0.2,7:0.3)
+#              -N2 -n4 => n000(0:0.0,1:0.1,2:0.2,3:0.3); n001(4:0.0,5:0.1,6:0.2,7:0.3)
 #
 #    NODE    round-robin across the nodes allocated to the job in the sequence
 #            they occur in SLURM_NODELIST
 #
-#              -N2 -n4 =&gt; n000(0:0.0,2:0.1,4:0.2,6:0.3); n001(1:0.0,3:0.1,5:0.2,7:0.3)
+#              -N2 -n4 => n000(0:0.0,2:0.1,4:0.2,6:0.3); n001(1:0.0,3:0.1,5:0.2,7:0.3)
 #
 #    SOCKET  round-robin across the allocated sockets on each allocated node
 #            in the sequence they occur in SLURM_NODELIST
 #
-#              -N2 -n4 =&gt; n000(0:0.0,2:0.1,4:1.0,6:1.1); n001(1:0.0,3:0.1,5:1.0,7:1.1)
+#              -N2 -n4 => n000(0:0.0,2:0.1,4:1.0,6:1.1); n001(1:0.0,3:0.1,5:1.0,7:1.1)
 #
 #            PLEASE NOTE:  socket mode requires use of the --exclusive flag
 #            to ensure uniform allocation of cores across sockets!
@@ -585,7 +585,7 @@ vpkg_require openmpi/default
 #
 #job_exit_handler() {
 #  # Copy all our output files back to the original job directory:
-#  cp * &quot;$SLURM_SUBMIT_DIR&quot;
+#  cp * "$SLURM_SUBMIT_DIR"
 #
 #  # Don't call again on EXIT signal, please:
 #  trap - EXIT
@@ -604,7 +604,7 @@ vpkg_require openmpi/default
 #        In effect, no matter whether the job is terminated
 #        or completes, the UD_JOB_EXIT_FN will be called.
 #
-#export UD_JOB_EXIT_FN_SIGNALS=&quot;SIGTERM EXIT&quot;
+#export UD_JOB_EXIT_FN_SIGNALS="SIGTERM EXIT"
 
 #
 # Do standard Open MPI environment setup (networks, etc.)
@@ -614,7 +614,7 @@ vpkg_require openmpi/default
 #
 # [EDIT] Execute your MPI program
 #
-${UD_MPIRUN} ./my_mpi_program arg1 &quot;arg2 has spaces&quot; arg3
+${UD_MPIRUN} ./my_mpi_program arg1 "arg2 has spaces" arg3
 mpi_rc=$?
 
 #
@@ -624,9 +624,9 @@ mpi_rc=$?
 #
 # Be sure to return the mpirun's result code:
 #
-exit $mpi_rc
+exit $mpi_rc</code></pre>
+</details>
 
-</code></pre>
 <p>Once the job script has been set up, you can submit the job using the <code>sbatch</code> command:</p>
 <pre><code class="language-text">sbatch openmpi.qs
 </code></pre>
@@ -680,17 +680,18 @@ watch squeue -p &lt;partition_name&gt;
   </div>
 
   <div class="rst-versions" role="note" aria-label="versions">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-      
-      
-        <span><a href="../installation/" style="color: #fcfcfc;">&laquo; Previous</a></span>
-      
-      
-        <span style="margin-left: 15px"><a href="../main/" style="color: #fcfcfc">Next &raquo;</a></span>
-      
-    </span>
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../installation/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../main/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
 </div>
     <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
     <script src="../js/theme.js" defer></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
       <script src="../search/main.js" defer></script>
