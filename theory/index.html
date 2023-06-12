@@ -1,57 +1,51 @@
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  
-  
-  <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Theory - pci</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
-
-  <link rel="stylesheet" href="../css/theme.css" />
-  <link rel="stylesheet" href="../css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
-  <link href="../css/extra.css" rel="stylesheet" />
-  
-  <script>
-    // Current page data
-    var mkdocs_page_name = "Theory";
-    var mkdocs_page_input_path = "theory.md";
-    var mkdocs_page_url = null;
-  </script>
-  
-  <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Theory - pci</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../css/extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Theory";
+        var mkdocs_page_input_path = "theory.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
 </head>
 
 <body class="wy-body-for-nav" role="document">
 
   <div class="wy-grid-for-nav">
-
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-        <a href=".." class="icon icon-home"> pci</a>
-        <div role="search">
+          <a href=".." class="icon icon-home"> pci
+        </a><div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                <p class="caption"><span class="caption-text">Basics</span></p>
-                <ul class="current">
-                    <li class="toctree-l1"><a class="reference internal" href="..">Introduction</a>
-                    </li>
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Theory</a>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Basics</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="..">Introduction</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Theory</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#configuration-interaction">Configuration Interaction</a>
     </li>
@@ -60,82 +54,69 @@
     <li class="toctree-l2"><a class="reference internal" href="#references">References</a>
     </li>
     </ul>
-                    </li>
-                </ul>
-                <p class="caption"><span class="caption-text">Using pCI</span></p>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../ud_instructions/">Working at UD</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../parallel_codes/">Running the codes</a>
-                    </li>
-                </ul>
-                <p class="caption"><span class="caption-text">pCI Technical Details</span></p>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../main/">pCI code package</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../all-order/">All-order/MBPT code package</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../auxiliary/">Auxiliary programs</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
-                    </li>
-                </ul>
-                <p class="caption"><span class="caption-text">Examples</span></p>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../basis_x/">Building a basis set for CI+X</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../qed/">Running QED</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../basis_neutral/">Example 1 - constructing basis for Ac and Sr</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../basis_complex/">Example 2 - constructing basis for Fe XVII and Ni XIX</a>
-                    </li>
-                </ul>
-                <p class="caption"><span class="caption-text">About</span></p>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../about/">About the Team</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../contact/">Contact Us</a>
-                    </li>
-                </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Using pCI</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ud_instructions/">Working at UD</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../parallel_codes/">Running the parallel codes</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">pCI Technical Details</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../main/">pCI code package</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../all-order/">All-order/MBPT code package</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../auxiliary/">Auxiliary programs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Examples</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../basis_x/">Building a basis set for CI+X</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../qed/">Running QED</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../basis_neutral/">Example 1 - constructing basis for Ac and Sr</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../basis_complex/">Example 2 - constructing basis for Fe XVII and Ni XIX</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../about/">About the Team</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contact/">Contact Us</a>
+                  </li>
+              </ul>
       </div>
     </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="..">pci</a>
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">pci</a>
+        
       </nav>
-
-      
       <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="..">Docs</a> &raquo;</li>
-    
-      
-        
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
           <li>Basics &raquo;</li>
-        
-      
-    
-    <li>Theory</li>
+      <li>Theory</li>
     <li class="wy-breadcrumbs-aside">
-      
     </li>
   </ul>
-  
   <hr/>
 </div>
-
-          <div role="main">
-            <div class="section">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
               
                 <h1 id="theory">Theory</h1>
 <p>For any many-electron system, we can divide all electrons into core and valence electrons. In this way, we can separate the electron-electron correlation problem into one describing the valence-valence correlations under the frozen-core approximation, and another describing the core-core and core-valence correlations. In the initial approximation, we start from the solution of the restricted Dirac-Hartree-Fock (HFD) equations in the central field approximation to construct one-electron orbitals for the core and valence electrons. Virtual orbitals can be constructed from B-splines or by other means to account for correlations. The valence-valence correlation problem is solved using the CI method, while core-core and core-valence correlations are included using either MBPT or the all-order method. In either case, we form an effective Hamiltonian in the valence CI space, then diagonalize the effective Hamiltonian using the CI method to find energies and wave functions for the low-lying states.</p>
@@ -192,31 +173,22 @@ where
 </div>
               
             </div>
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../installation/" class="btn btn-neutral float-right" title="Installation">Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
-        <a href=".." class="btn btn-neutral" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-    
       <p>&copy; Copyright 2022, pCI Development Team.</p>
-    
   </div>
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
-      
+          
         </div>
       </div>
 
@@ -224,7 +196,7 @@ where
 
   </div>
 
-  <div class="rst-versions" role="note" aria-label="versions">
+  <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
