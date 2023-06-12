@@ -143,26 +143,18 @@ Kw         ! (0 - do not write CONF.HIJ, 1 - write CONF.HIJ)
 <pre><code class="language-text">mpirun -n &lt;nprocs&gt; ./conf
 </code></pre>
 <h2 id="ine">ine</h2>
-<p>Before parallel <code>ine</code> can be run, the parallel matrix files <code>CONFp.HIJ</code> and <code>CONFp.JJJ</code> have to be sorted. This can be done using the python script <code>/pCI/src/auxiliary/sort.py</code>. 
-1. First load the python3 </p>
-<pre><code>vpkg_require python/3
-</code></pre>
+<p>Before parallel <code>ine</code> can be run, the parallel matrix files <code>CONFp.HIJ</code> and <code>CONFp.JJJ</code> have to be sorted. This can be done using the python script <code>/pCI/src/auxiliary/sort.py</code>. </p>
 <ol>
-<li>Run python script <code>sort.py</code></li>
+<li>First load the python3 
+    <code>vpkg_require python/3</code></li>
+<li>Run python script <code>sort.py</code>
+    <code>python3 sort.py</code></li>
+<li>The program will ask which file you want sorted, so enter <code>CONFp.HIJ</code> or <code>CONFp.JJJ</code>
+    <code>CONFp.HIJ</code></li>
+<li>Now re-run the program for the other matrix
+    <code>python3 sort.py
+    CONFp.JJJ</code></li>
 </ol>
-<pre><code>python3 sort.py
-</code></pre>
-<ol>
-<li>The program will ask which file you want sorted, so enter <code>CONFp.HIJ</code> or <code>CONFp.JJJ</code></li>
-</ol>
-<pre><code>CONFp.HIJ
-</code></pre>
-<ol>
-<li>Now re-run the program for the other matrix</li>
-</ol>
-<pre><code>python3 sort.py
-CONFp.JJJ
-</code></pre>
 <p>After these files are obtained, you can run the parallel version of <code>ine</code>. This requires the input file :</p>
 <pre><code>0                          | Kl = (0-new, 1-use X1, 2-use X1,Y1,Y2)
 2                          | Kli = (1 - H_p, 2 - E1(L), 5 - E2) for RHS of equation
