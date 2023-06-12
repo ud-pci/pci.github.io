@@ -145,15 +145,17 @@ Kw         ! (0 - do not write CONF.HIJ, 1 - write CONF.HIJ)
 <h2 id="ine">ine</h2>
 <p>Before parallel <code>ine</code> can be run, the parallel matrix files <code>CONFp.HIJ</code> and <code>CONFp.JJJ</code> have to be sorted. This can be done using the python script <code>/pCI/src/auxiliary/sort.py</code>. </p>
 <ol>
-<li>First load the python3 
-    <code>vpkg_require python/3</code></li>
-<li>Run python script <code>sort.py</code>
-    <code>python3 sort.py</code></li>
-<li>The program will ask which file you want sorted, so enter <code>CONFp.HIJ</code> or <code>CONFp.JJJ</code>
-    <code>CONFp.HIJ</code></li>
-<li>Now re-run the program for the other matrix
-    <code>python3 sort.py
-    CONFp.JJJ</code></li>
+<li>
+<p>First load the python3 </p>
+<p><code>vpkg_require python/3</code>
+2. Run python script <code>sort.py</code></p>
+<p><code>python3 sort.py</code>
+3. The program will ask which file you want sorted, so enter <code>CONFp.HIJ</code> or <code>CONFp.JJJ</code></p>
+<p><code>CONFp.HIJ</code>
+4. Now re-run the program for the other matrix</p>
+<p><code>python3 sort.py
+CONFp.JJJ</code></p>
+</li>
 </ol>
 <p>After these files are obtained, you can run the parallel version of <code>ine</code>. This requires the input file :</p>
 <pre><code>0                          | Kl = (0-new, 1-use X1, 2-use X1,Y1,Y2)
