@@ -8,7 +8,7 @@
     <title>Introduction - pci</title>
     <link rel="stylesheet" href="css/theme.css" />
     <link rel="stylesheet" href="css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
         <link href="css/extra.css" rel="stylesheet" />
     
       <script>
@@ -18,12 +18,11 @@
         var mkdocs_page_url = null;
       </script>
     
-    <script src="js/jquery-3.6.0.min.js" defer></script>
     <!--[if lt IE 9]>
       <script src="js/html5shiv.min.js"></script>
     <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-      <script>hljs.initHighlightingOnLoad();</script> 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
 </head>
 
 <body class="wy-body-for-nav" role="document">
@@ -67,6 +66,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="auxiliary/">Auxiliary programs</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="auxiliary_scripts/">Auxiliary scripts</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="changelog/">Changelog</a>
                   </li>
               </ul>
@@ -101,9 +102,9 @@
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
-          <li>Basics &raquo;</li>
-      <li>Introduction</li>
+    <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Basics</li>
+      <li class="breadcrumb-item active">Introduction</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -113,7 +114,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="welcome-to-pcis-documentation">Welcome to pCI's documentation</h1>
-<p>pCI is a high-precision relativistic atomic calculation package based on the configuration interaction (CI) method and methods combining CI with many-body perturbation theory and/or the all-order coupled-cluster method. </p>
+<p>pCI is a high-precision relativistic atomic structure code package based on the configuration interaction (CI) method and methods combining CI with many-body perturbation theory and/or the all-order coupled-cluster method. </p>
 <p>The serial version of the CI+MBPT code package was modified for public use and published in Computer Physics Communications in 2015 by M. Kozlov <em>et al.</em> </p>
               
             </div>
@@ -148,15 +149,16 @@
     
   </span>
 </div>
-    <script>var base_url = '.';</script>
-    <script src="js/theme_extra.js" defer></script>
-    <script src="js/theme.js" defer></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
-      <script src="search/main.js" defer></script>
-    <script defer>
-        window.onload = function () {
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = ".";</script>
+    <script src="js/theme_extra.js"></script>
+    <script src="js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="search/main.js"></script>
+    <script>
+        jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);
-        };
+        });
     </script>
 
 </body>

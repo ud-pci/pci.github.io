@@ -8,7 +8,7 @@
     <title>Installation - pci</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
         <link href="../css/extra.css" rel="stylesheet" />
     
       <script>
@@ -18,12 +18,11 @@
         var mkdocs_page_url = null;
       </script>
     
-    <script src="../js/jquery-3.6.0.min.js" defer></script>
     <!--[if lt IE 9]>
       <script src="../js/html5shiv.min.js"></script>
     <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-      <script>hljs.initHighlightingOnLoad();</script> 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
 </head>
 
 <body class="wy-body-for-nav" role="document">
@@ -54,6 +53,8 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#required-libraries">Required libraries</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pre-built-pci-on-ud-clusters">Pre-built pCI on UD clusters</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#obtaining-the-source-code">Obtaining the source code</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#via-git">via git</a>
@@ -74,6 +75,8 @@
                   <li class="toctree-l1"><a class="reference internal" href="../all-order/">All-order/MBPT code package</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../auxiliary/">Auxiliary programs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../auxiliary_scripts/">Auxiliary scripts</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
                   </li>
@@ -109,9 +112,9 @@
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
-          <li>Using pCI &raquo;</li>
-      <li>Installation</li>
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Using pCI</li>
+      <li class="breadcrumb-item active">Installation</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -124,17 +127,22 @@
 <h2 id="required-libraries">Required libraries</h2>
 <p>In order to compile pCI the following software libraries and tools are required:</p>
 <ul>
-<li>Intel Fortran compiler.</li>
+<li>Fortran compiler.</li>
 <li>CMake build tool.</li>
-<li>(Optional) MPI library to run on high-performance computing clusters. The codes have only been tested with OpenMPI so far.</li>
+<li>MPI library to run on high-performance computing clusters. The codes have only been tested with OpenMPI so far.</li>
 </ul>
+<h2 id="pre-built-pci-on-ud-clusters">Pre-built pCI on UD clusters</h2>
+<p>If working on a UD cluster, a pre-built copy of the latest pCI package can be readily obtainable via VALET:</p>
+<pre><code class="language-text">vpkg_require pci
+</code></pre>
+<p>This command automatically configures your environment to include all necessary libraries to run pCI: an Intel Fortran compiler and OpenMPI library, as well as latest version of Python to run auxiliary scripts. If using the pre-built pCI distribution, you do not have to compile anything and can ignore the rest of this page.</p>
 <h2 id="obtaining-the-source-code">Obtaining the source code</h2>
 <p>Users can download the latest version of the pCI code package from</p>
-<pre><code class="language-text">https://github.com/ccheung93/pCI
+<pre><code class="language-text">https://github.com/ud-pci/pCI
 </code></pre>
 <h2 id="via-git">via git</h2>
 <p>From the command line, you can clone the latest version:</p>
-<pre><code class="language-text">git clone https://github.com/ccheung93/pCI.git
+<pre><code class="language-text">git clone https://github.com/ud-pci/pCI.git
 </code></pre>
 <h2 id="compiling-with-cmake">Compiling with CMake</h2>
 <p>The codes are built using the 'CMakeLists.txt' file. The following are some example builds on the DARWIN computing cluster.</p>
@@ -193,15 +201,16 @@ $ make install
     
   </span>
 </div>
-    <script>var base_url = '..';</script>
-    <script src="../js/theme_extra.js" defer></script>
-    <script src="../js/theme.js" defer></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
-      <script src="../search/main.js" defer></script>
-    <script defer>
-        window.onload = function () {
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);
-        };
+        });
     </script>
 
 </body>

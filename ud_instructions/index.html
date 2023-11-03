@@ -8,7 +8,7 @@
     <title>Working at UD - pci</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
         <link href="../css/extra.css" rel="stylesheet" />
     
       <script>
@@ -18,12 +18,11 @@
         var mkdocs_page_url = null;
       </script>
     
-    <script src="../js/jquery-3.6.0.min.js" defer></script>
     <!--[if lt IE 9]>
       <script src="../js/html5shiv.min.js"></script>
     <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-      <script>hljs.initHighlightingOnLoad();</script> 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
 </head>
 
 <body class="wy-body-for-nav" role="document">
@@ -70,6 +69,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#managing-jobs-at-ud">Managing Jobs at UD</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#additional-information-and-support">Additional Information and Support</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../parallel_codes/">Running the parallel codes</a>
@@ -82,6 +83,8 @@
                   <li class="toctree-l1"><a class="reference internal" href="../all-order/">All-order/MBPT code package</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../auxiliary/">Auxiliary programs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../auxiliary_scripts/">Auxiliary scripts</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
                   </li>
@@ -117,9 +120,9 @@
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
-          <li>Using pCI &raquo;</li>
-      <li>Working at UD</li>
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Using pCI</li>
+      <li class="breadcrumb-item active">Working at UD</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -129,7 +132,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="working-at-ud">Working at UD</h1>
-<p>The University of Delaware currently houses and maintains three community clusters. </p>
+<p>The University of Delaware currently houses and maintains the Caviness community cluster and the NSF funded DARWIN cluster. </p>
 <table>
 <thead>
 <tr>
@@ -148,8 +151,7 @@
 </tr>
 </tbody>
 </table>
-<p>&nbsp;</p>
-<p>More information about the community clusters can be found <em><a href="http://docs.hpc.udel.edu/" target="_blank">here</a></em>.  </p>
+<p>More information about the UD clusters can be found <em><a href="http://docs.hpc.udel.edu/" target="_blank">here</a></em>.  </p>
 <h2 id="compiling-at-ud">Compiling at UD</h2>
 <p>The computers at UD utilize the VALET system for installing software. We load the cmake and openmpi modules into your environment using the command <code>vpkg_require</code>. </p>
 <pre><code class="language-text">$ vpkg_require intel
@@ -190,6 +192,8 @@ $ make install
 <p>Each community cluster has their own versions of cmake and openmpi. To see what versions and variants of a package are available on the cluster, use the <code>vpkg_versions</code> command.</p>
 </div>
 <h2 id="running-jobs-at-ud">Running Jobs at UD</h2>
+<p>The UD clusters utilize the Slurm workload manager (job scheduling system) to manage and control the resources available to computational tasks. Users can either run their jobs interactively or submit in batch. For an interacive job, the user must type the commands they wish to execute in real time. For a batch job, those sequence of commands are saved to a file, known as a job script, which is submitted to Slurm. Using batch job scripts have several advantages such as reusability and increased job throughput. </p>
+<p>More information about running jobs can be found <em><a href="http://docs.hpc.udel.edu/abstract/darwin/runjobs/runjobs" target="_blank">here</a></em>.  </p>
 <h3 id="job-scripts">Job scripts</h3>
 <p>It is strongly recommended to use a job script file patterned after the prototypes in <code>/opt/templates/</code>. There are <code>README.md</code> files in each subdirectory to explain the use of the templates. The following job scripts are valid for usage only in the Caviness and DARWIN community clusters. </p>
 <h4 id="serial-job-script">Serial job script</h4>
@@ -618,12 +622,27 @@ squeue -p &lt;partition_name&gt;
 <pre><code class="language-text">watch squeue -u &lt;username&gt;
 watch squeue -p &lt;partition_name&gt;
 </code></pre>
-<p>To see the amount of resources available for your job, you can run the <code>squota</code> command:</p>
+<p>(Caviness only) To see information about the current utilization of guaranteed resources for the workgroup, you can run the <code>squota</code> command:</p>
 <pre><code class="language-text">squota
 </code></pre>
 <p>To cancel your job, you can run the <code>scancel</code> command:</p>
 <pre><code class="language-text">scancel &lt;job-id&gt;
 </code></pre>
+<p>To see information about the partitions and nodes, you can run the <code>sinfo</code> command:</p>
+<pre><code class="language-text">sinfo
+sinfo -p &lt;partition-name&gt;
+</code></pre>
+<p>To see information about your queued jobs, you can run the <code>scontrol</code> command:</p>
+<pre><code class="language-text">scontrol show job &lt;job-id&gt;
+</code></pre>
+<p>To see information about a completed job, you can run the <code>sacct</code> command:</p>
+<pre><code class="language-text">sacct -j &lt;job-id&gt;
+</code></pre>
+<p>More information about managing jobs can be found here for <em><a href="http://docs.hpc.udel.edu/abstract/caviness/runjobs/job_status" target="_blank">Caviness</a></em> and <em><a href="http://docs.hpc.udel.edu/abstract/darwin/runjobs/job_status" target="_blank">DARWIN</a></em>.  </p>
+<h2 id="additional-information-and-support">Additional Information and Support</h2>
+<p>For additional information and support for running jobs on the UD clusters, please visit the respective cluster documentation pages:<br />
+Caviness: <a href="http://docs.hpc.udel.edu/abstract/caviness/caviness" target="_blank">http://docs.hpc.udel.edu/abstract/caviness/caviness</a><br />
+DARWIN: <a href="http://docs.hpc.udel.edu/abstract/darwin/darwin" target="_blank">http://docs.hpc.udel.edu/abstract/darwin/darwin</a></p>
               
             </div>
           </div><footer>
@@ -660,15 +679,16 @@ watch squeue -p &lt;partition_name&gt;
     
   </span>
 </div>
-    <script>var base_url = '..';</script>
-    <script src="../js/theme_extra.js" defer></script>
-    <script src="../js/theme.js" defer></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" defer></script>
-      <script src="../search/main.js" defer></script>
-    <script defer>
-        window.onload = function () {
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);
-        };
+        });
     </script>
 
 </body>
