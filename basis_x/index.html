@@ -88,6 +88,8 @@
               </ul>
               <p class="caption"><span class="caption-text">About</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../publications/">Publications</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../about/">About the Team</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../contact/">Contact Us</a>
@@ -118,7 +120,7 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="building-a-basis-for-ciall-order-and-cimbpt">Building a basis for CI+all-order and CI+MBPT</h1>
-<p><em>The following instructions assume familiarity with the main programs of the <a href="../main" target="_blank">pCI package</a>.</em></p>
+<p><em>The following instructions assume familiarity with the main programs of the <a href="../main/" target="_blank">pCI package</a>.</em></p>
 <h2 id="ci-and-all-order-basis-sets">CI and all-order basis sets</h2>
 <p>In this section, we describe the general method of building basis sets for the CI+all-order and CI+MBPT code packages. As the CI and all-order code packages were developed separately, they use basis sets in different formats. CI uses <code>HFD.DAT</code> and all-order uses <code>hfspl.1</code> and <code>hfspl.2</code> files. For all-order/CI+all-order/CI+MBPT calculations, most of the basis is constructed via the B-splines. However, one needs too many B-splines to reproduce core and lower valence stats with high enough accuracy for heavier atoms. Therefore, core and a few few valence electron wave functions are taken from Dirac-Hartree-Fock (DHF), and a combined basis with splines is built. More splines will mean larger basis for the CI as well, so we would like to avoid this. There also seems to be an issue with the basis converter codes for larger numbers of B-splines.</p>
 <p>All-order or MBPT calculations involve sums over all possible states. To computer these accurately, one needs a large basis. Generally, we use <code>lmax=6</code> and <code>Nmax=35</code> for each of the partial waves <script type="math/tex"> (1-35s, 2-35p_{1/2},2-35p_{3/2},\dots)</script>. CI does not require such large basis sets and it is reducing for CI computations. </p>
@@ -250,7 +252,7 @@
 </ul>
 </li>
 </ol>
-<p>The final <code>hfspl.1</code> and <code>hfspl.2</code> files are the basis set files that can be read from the <a href="../all-order">all-order part of the package</a>.</p>
+<p>The final <code>hfspl.1</code> and <code>hfspl.2</code> files are the basis set files that can be read from the <a href="../all-order/">all-order part of the package</a>.</p>
               
             </div>
           </div><footer>
