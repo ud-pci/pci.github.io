@@ -1,0 +1,86 @@
+# General parameters
+system:
+    name: Sr
+    isotope: 
+    include_breit: True
+
+# Parameters used by basis programs
+basis:
+    cavity_radius: 60
+    orbitals:
+        core: 1s 2s 2p 3s 3p 3d 4s 4p 
+        valence: 5s 5p 4d 6s 6p 5d 4f
+        nmax: 35
+        lmax: 6
+    b_splines:
+        nmax: 40
+        lmax: 6
+        k: 7
+    val_aov:
+        s: 4
+        p: 4
+        d: 4
+        f: 3
+    val_energies:
+        kval: 1
+        energies: 
+            s: -0.28000
+            p: [-0.22000, -0.22000]
+            d: [-0.31000, -0.31000]
+            f: [-0.13000, -0.13000]
+
+# Parameters used by add program
+add:
+    # Lists of even and odd parity reference configurations
+    ref_configs:
+        odd: [5s1   5p1]
+        even: [5s2]
+    basis_set: 22spdfg
+    orbitals:
+        core: 1s 2s 2p 3s 3p 3d 4s 4p 
+        active: [
+            4-7p:  0  4,
+            4-7d:  0  4,
+            4-7f:  0  4,
+            5-7g:  0  4,
+            ]    
+    excitations:
+        single: True
+        double: True
+        triple: False
+
+# Parameters used by conf program
+conf:
+    J: 0.0
+    JM: 0.0
+    J_selection: False
+    num_energy_levels: 24
+    num_dvdsn_iterations: 100
+    include_lsj: True
+    write_hij: False
+
+# Parameters used by dtm program
+dtm:
+    matrix_elements: E1
+    include_rpa: True
+
+# Parameters used by portal script
+portal:
+    ignore_g: True
+    
+# Optional parameters
+optional:
+    qed:
+        include: False
+        rotate_basis: False
+
+    isotope_shifts: 
+        include: False
+        K_is: 1
+        C_is: 0.01
+
+    code_method: [ci+all-order, ci+second-order]
+    generate_directories: False
+    run_ao_codes: True
+    run_ci: True
+    pci_version: default

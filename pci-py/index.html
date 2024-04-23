@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Auxiliary scripts - pci</title>
+    <title>pCI-py scripts - pci</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Auxiliary scripts";
-        var mkdocs_page_input_path = "auxiliary_scripts.md";
+        var mkdocs_page_name = "pCI-py scripts";
+        var mkdocs_page_input_path = "pci-py.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -62,9 +62,9 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../all-order/">All-order/MBPT code package</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../auxiliary/">Auxiliary programs</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../supplementary/">Supplementary programs</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Auxiliary scripts</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">pCI-py scripts</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#configyml">config.yml</a>
     </li>
@@ -72,15 +72,21 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#addpy">add.py</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#parse_asdpy">parse_asd.py</a>
+    <li class="toctree-l2"><a class="reference internal" href="#dtmpy">dtm.py</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#gen_portal_csvpy">gen_portal_csv.py</a>
     </li>
     </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../portal_codes/">Portal codes</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Examples</span></p>
               <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../pci-py-example/">Sr with pCI-py</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../basis_x/">Building a basis set for CI+X</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../qed/">Running QED</a>
@@ -114,7 +120,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">pCI Technical Details</li>
-      <li class="breadcrumb-item active">Auxiliary scripts</li>
+      <li class="breadcrumb-item active">pCI-py scripts</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -123,44 +129,48 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="auxiliary-scripts">Auxiliary scripts</h1>
-<p>In this section, we describe supplementary python scripts used to automatically generate basis sets and configuration lists. Scripts that require the execution of a pCI program read a user-defined configuration file <code>config.yml</code> to set general parameters about the atomic system of interest.</p>
+                <h1 id="pci-py-scripts">pci-py scripts</h1>
+<p>In this section, we describe supplementary python scripts used to automate the entire pCI process, from the generation of basis sets and configuration lists to the actual calculations themselves. These python scripts read a user-defined YAML-formatted configuration file <code>config.yml</code> to set general parameters defining the atomic system of interest, as well as parameters defining the types of the calculations.</p>
+<p><em>These python scripts are currently designed primarily for massive data generation via CI+all-order and CI+MBPT calculations on the UD clusters. They can be modified in the future for more general calculations.</em></p>
 <h2 id="configyml">config.yml</h2>
-<p>The <code>config.yml</code> file is a YAML configuration file that defines important parameters of the atomic system of interest. This config file is divided into several sections:</p>
+<p>The <code>config.yml</code> file is a YAML-formatted configuration file that defines important parameters of the atomic system of interest. This config file is divided into several sections:</p>
 <ul>
 <li>general parameters</li>
 <li>parameters used by basis programs (only read by basis.py)</li>
 <li>parameters used by add program (only read by add.py)</li>
 <li>parameters used by conf program (only read by add.py)</li>
-<li>optional parameters to automatically execute programs, include QED, or include isotope shift calculations (only read by basis.py)</li>
+<li>parameters used by dtm program (only read by dtm.py)</li>
+<li>optional parameters</li>
 </ul>
 <p>The general parameters are in the block <code>system</code> and is read by all python scripts:</p>
 <pre><code class="language-text">system:
-    name: Ni12+
+    name: Sr
     isotope: 
     include_breit: True
 </code></pre>
-<p>The <code>name</code> field takes the name of the atomic system of interest.<br />
-The <code>isotope</code> field takes a specified isotope number. If left blank, the script will automatically find the atomic weight from nuclear radii table.<br />
-The <code>include_breit</code> field takes in a boolean to set whether to include Breit corrections or not.</p>
+<p>The <code>system.name</code> field takes the name of the atomic system of interest.<br />
+The <code>system.isotope</code> field takes a specified isotope number. If left blank, the script will automatically find the atomic weight from nuclear radii table.<br />
+The <code>system.include_breit</code> field takes in a boolean to set whether to include Breit corrections or not.</p>
 <h2 id="basispy">basis.py</h2>
 <p>The <code>basis.py</code> script automatically generates the basis set given information about the atomic system of interest via a configuration file <code>config.yml</code>. This script reads the <code>basis</code> block:</p>
 <pre><code class="language-text">basis:
     cavity_radius: 60
     orbitals:
-        core: 1s 2s 2p 3s 3p 3d 4s 4p 4d 4f 5s 5p 5d 6s 6p
-        valence: 6d 5f 7s 7p 8s
+        core: 1s 2s 2p 3s 3p 3d 4s 4p 
+        valence: 5s 5p 4d 6s 6p 5d 4f
+        nmax: 35
+        lmax: 6
     b_splines:
-        nmax: 30
-        lmax: 7
+        nmax: 40
+        lmax: 6
         k: 7
     val_aov:
-        s: 3
-        p: 3
-        d: 3
+        s: 4
+        p: 4
+        d: 4
         f: 3
     val_energies:
-        kval: 2
+        kval: 1
         energies: 
             s: -0.28000
             p: [-0.22000, -0.22000]
@@ -168,8 +178,8 @@ The <code>include_breit</code> field takes in a boolean to set whether to includ
             f: [-0.13000, -0.13000]
 </code></pre>
 <p>The <code>basis.cavity_radius</code> field takes in a value to set the size of the spherical cavity.<br />
-The <code>basis.orbitals</code> block requires specification of the core and valence orbitals to be included in the basis.<br />
-The <code>basis.b_splines</code> block requires specification of the maximum principal quantum number <code>nmax</code> (number of splines), maximum partial wave number <code>lmax</code>, and order of splines.<br />
+The <code>basis.orbitals</code> block requires specification of the core and valence orbitals to be included in the basis. It also requires a maximum principal quantum number <code>nmax</code> and maximum partial wave <code>lmax</code> for basis set orbital generation.
+The <code>basis.b_splines</code> block requires specification of the maximum principal quantum number <code>nmax</code> (number of splines), maximum partial wave  <code>lmax</code>, and order of splines.<br />
 The <code>basis.val_aov</code> block requires the number of valence orbitals to include for each partial wave.<br />
 The <code>basis.val_energies</code> block allows specification of the energies of the valence orbitals. </p>
 <p>In addition, the script will read the <code>optional</code> block:</p>
@@ -191,25 +201,20 @@ The <code>optional.isotope_shifts</code> block allows users to specify isotope s
 The <code>optional.code_exec</code> field allows users to specify automatic execution of basis set codes depending on value.<br />
 The <code>optional.run_ao_codes</code> field allows users to specify whether they would like to run the all-order set of codes after construction of the basis set.</p>
 <h2 id="addpy">add.py</h2>
-<p>The <code>add.py</code> script automatically generates the list of configurations given information about the atomic system of interest via a configuration file <code>config.yml</code>. This script reads the <code>add</code> block:</p>
+<p>The <code>add.py</code> script automatically generates the list of configurations given information about the atomic system of interest via a configuration file <code>config.yml</code>. Note that if <code>BASS.INP</code> is not present, the order of the conigurations will be by $nl$, and not how it is defined in the basis set construction. This script reads the <code>add</code> block:</p>
 <pre><code class="language-text">add:
-    # Set of even and odd parity reference configurations
+    # Lists of even and odd parity reference configurations
     ref_configs:
-        odd: 
-        even: [
-   1s2 2s2 2p6 3s2   3p4, 
-   1s2 2s2 2p6 3s2   3p3   4p1, 
-   1s2 2s2 2p6 3s1   3p4   4s1           
-        ]
-    basis_set: 17spdfg
+        odd: [5s1   5p1]
+        even: [5s2]
+    basis_set: 22spdfg
     orbitals:
-        core:
+        core: 1s 2s 2p 3s 3p 3d 4s 4p 
         active: [
-            1-2s: 2  2,
-            2p: 6  6,
-            3-7p:  0  6,
-            3-7d:  0  6,
-            4-5f:  0  6,
+            4-7p:  0  4,
+            4-7d:  0  4,
+            4-7f:  0  4,
+            5-7g:  0  4,
             ]    
     excitations:
         single: True
@@ -220,21 +225,52 @@ The <code>optional.run_ao_codes</code> field allows users to specify whether the
 The <code>add.basis_set</code> block requires specification of the basis set designated by <code>nspdfg</code>, where <code>n</code> specifies the principal quantum number, and <code>spdfg</code> specifies inclusion of s, p, d, f, and g orbitals. One can include higher partial waves by appending to the end of the list <code>h</code>, <code>i</code>, <code>k</code>, ...<br />
 The <code>add.orbitals</code> block allows full customization of allowed orbital occupancies. For example, <code>1-2s: 2 2</code> defines the 1s and 2s orbitals to be closed, <code>2p: 6 6</code> defines the 2p orbital to be closed, <code>3-7p: 0 6</code> defines 3p to 7p orbitals to be completely open to allow up to 6 electrons on those orbitals.<br />
 The <code>add.excitations</code> block defines the number of allowed excitations.</p>
-<h2 id="parse_asdpy">parse_asd.py</h2>
+<p>This script also reads parameters for the CI execution from the <code>conf</code> block:</p>
+<pre><code class="language-text">conf:
+    J: 0.0
+    JM: 0.0
+    J_selection: False
+    num_energy_levels: 24
+    num_dvdsn_iterations: 100
+    include_lsj: True
+    write_hij: False
+</code></pre>
+<p>The <code>conf.J</code> field defines the total angular momentum of the energy levels.<br />
+The <code>conf.JM</code> field defines the projection of the total angular momentum.<br />
+The <code>conf.J_selection</code> field defines whether the user wants energy levels of a specific J value defined by J and JM.<br />
+The <code>conf.num_energy_levels</code> field defines the number of energy levels to be calculated.<br />
+The <code>conf.num_dvdsn_iterations</code> field defines the total number of Davidson iterations allowed.<br />
+The <code>conf.include_lsj</code> field defines whether the user wants expectation values <script type="math/tex">L^2</script> and <script type="math/tex">S^2</script> to be calculated.<br />
+The <code>conf.write_hij</code> field defines whether the user wants the Hamiltonian matrix to be written to file <code>CONF.HIJ</code>.  </p>
+<h2 id="dtmpy">dtm.py</h2>
+<p>The <code>dtm.py</code> script automatically generates the density and/or transition matrix elements given information about the atomic system of interest via a configuration file <code>config.yml</code>. This script reads the <code>dtm</code> block:</p>
+<pre><code class="language-text">dtm:
+    matrix_elements: E1
+    include_rpa: True
+</code></pre>
+<p>The <code>dtm.matrix_elements</code> field defines the types of matrix elements to be calculated. This can be a single matrix element or an array of matrix elements such as <code>[E1, M2]</code>
+The <code>dtm.include_rpa</code> field defines whether the user would like to include RPA corrections.</p>
+<h2 id="gen_portal_csvpy">gen_portal_csv.py</h2>
+<p>The <code>gen_portaL_csv.py</code> script generates csv-formatted datafiles of atomic properties given information about the atomic system of interest via a configuration file <code>config.yml</code>. This script reads the <code>portal</code> block:</p>
+<pre><code class="language-text">portal:
+    ignore_g: True
+</code></pre>
+<p>The <code>portal.ignore_g</code> field removes all atomic properties with <script type="math/tex">>g</script> orbitals in the configuration or <script type="math/tex">>G</script> terms.</p>
 <p>The <code>parse_asd.py</code> script parses the NIST Atomic Spectra Database and generates a csv-formatted file with spectral data for a user-inputed system of interest. The csv outputted by the script is formatted for the <a href="https://www1.udel.edu/atom/" target="_blank">UD Portal for High-Precision Atomic Data and Computation</a>. </p>
+<p><em>More information about atomic data generation for the UD ATOM portal can be found <a href="../portal_codes/" target="_blank">here</a></em>.</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../auxiliary/" class="btn btn-neutral float-left" title="Auxiliary programs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../changelog/" class="btn btn-neutral float-right" title="Changelog">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../supplementary/" class="btn btn-neutral float-left" title="Supplementary programs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../portal_codes/" class="btn btn-neutral float-right" title="Portal codes">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <!-- Copyright etc -->
-      <p>&copy; Copyright 2023, pCI Development Team.</p>
+      <p>&copy; Copyright 2024, pCI Development Team.</p>
   </div>
 
   Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
@@ -251,10 +287,10 @@ The <code>add.excitations</code> block defines the number of allowed excitations
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../auxiliary/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../supplementary/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../changelog/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../portal_codes/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
