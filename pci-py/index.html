@@ -62,6 +62,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../all-order/">All-order/MBPT code package</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../radial_grid/">Changing the radial grid</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../supplementary/">Supplementary programs</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">pCI-py scripts</a>
@@ -75,6 +77,8 @@
     <li class="toctree-l2"><a class="reference internal" href="#dtmpy">dtm.py</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#gen_portal_csvpy">gen_portal_csv.py</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#calc_lifetimespy">calc_lifetimes.py</a>
     </li>
     </ul>
                   </li>
@@ -243,7 +247,7 @@ The <code>conf.num_dvdsn_iterations</code> field defines the total number of Dav
 The <code>conf.include_lsj</code> field defines whether the user wants expectation values <script type="math/tex">L^2</script> and <script type="math/tex">S^2</script> to be calculated.<br />
 The <code>conf.write_hij</code> field defines whether the user wants the Hamiltonian matrix to be written to file <code>CONF.HIJ</code>.  </p>
 <h2 id="dtmpy">dtm.py</h2>
-<p>The <code>dtm.py</code> script automatically generates the density and/or transition matrix elements given information about the atomic system of interest via a configuration file <code>config.yml</code>. This script reads the <code>dtm</code> block:</p>
+<p>The <code>dtm.py</code> script automatically generates the density and/or transition matrix elements given output files from <code>conf</code> runs. This script reads the <code>dtm</code> block from <code>config.yml</code>:</p>
 <pre><code class="language-text">dtm:
     matrix_elements: E1
     include_rpa: True
@@ -251,12 +255,15 @@ The <code>conf.write_hij</code> field defines whether the user wants the Hamilto
 <p>The <code>dtm.matrix_elements</code> field defines the types of matrix elements to be calculated. This can be a single matrix element or an array of matrix elements such as <code>[E1, M2]</code>
 The <code>dtm.include_rpa</code> field defines whether the user would like to include RPA corrections.</p>
 <h2 id="gen_portal_csvpy">gen_portal_csv.py</h2>
-<p>The <code>gen_portaL_csv.py</code> script generates csv-formatted datafiles of atomic properties given information about the atomic system of interest via a configuration file <code>config.yml</code>. This script reads the <code>portal</code> block:</p>
+<p>The <code>gen_portal_csv.py</code> script generates csv-formatted datafiles of atomic energy levels and matrix elements given output files from <code>conf</code> and <code>dtm</code> runs. This script reads the <code>portal</code> block from <code>config.yml</code>:</p>
 <pre><code class="language-text">portal:
     ignore_g: True
+    min_uncertainty: 1.5
 </code></pre>
-<p>The <code>portal.ignore_g</code> field removes all atomic properties with <script type="math/tex">>g</script> orbitals in the configuration or <script type="math/tex">>G</script> terms.</p>
-<p>The <code>parse_asd.py</code> script parses the NIST Atomic Spectra Database and generates a csv-formatted file with spectral data for a user-inputed system of interest. The csv outputted by the script is formatted for the <a href="https://www1.udel.edu/atom/" target="_blank">UD Portal for High-Precision Atomic Data and Computation</a>. </p>
+<p>The <code>portal.ignore_g</code> field removes all atomic properties with <script type="math/tex">>g</script> orbitals in the configuration or <script type="math/tex">>G</script> terms.
+The <code>porta.min_uncertainty</code> field sets a minimum uncertainty in percentage for matrix value uncertainties. The script has predefined minimum uncertainties set for a few systems. </p>
+<h2 id="calc_lifetimespy">calc_lifetimes.py</h2>
+<p>The <code>calc_lifetimes.py</code> script generates csv-formatted datafiles of lifetimes and transition rates given output files from <code>gen_portal_csv.py</code>.</p>
 <p><em>More information about atomic data generation for the UD ATOM portal can be found <a href="../portal_codes/" target="_blank">here</a></em>.</p>
               
             </div>

@@ -62,6 +62,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../all-order/">All-order/MBPT code package</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../radial_grid/">Changing the radial grid</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../supplementary/">Supplementary programs</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../pci-py/">pCI-py scripts</a>
@@ -130,7 +132,7 @@
 <p><em>Reading and reformatting input files</em><br />
    First, we read all <code>CONFFINAL.RES</code> outputs from <code>conf</code> from each calculation done. The script will first check directories <code>/ci+all-order/even/</code>, <code>/ci+all-order/odd/</code>, <code>/ci+second-order/even/</code> and <code>/ci+second-order/odd/</code> for this file. If these directories are not detected, then it will check the <code>/DATA_RAW/</code> directory, where users should place them. If using this directory, the all-order output files should be named <code>CONFFINALeven.RES</code> and <code>CONFFINALodd.RES</code>, and the second-order output files should be named <code>CONFFINALevenMBPT.RES</code> and <code>CONFFINALoddMBPT.RES</code>. If the all-order and second-order directories are detected, the script will place them in <code>/DATA_RAW/</code> itself. Additionally, matrix element output files, such as <code>E1.RES</code> from <code>dtm</code> can be read. The script will check directories <code>/ci+all-order/dtm/</code> and <code>/ci+second-order/dtm/</code> first before <code>/DATA_RAW/</code>. The all-order and second-order output files should be named, for example, <code>E1.RES</code> and <code>E1MBPT.RES</code>.<br />
    Once all input files are read, if second-order/MBPT exist, then uncertainties are calculated and a new csv-formatted <code>CONFFINAL.csv</code> is written with uncertainties. Otherwise, they are all set to 0 in this file.<br />
-   Experimental data are then acquired by parsing the <a href="https://physics.nist.gov/PhysRefData/ASD/levels_form.html" target="_blank">NIST Atomic Spectral Database</a> for full list of energy levels and stored for comparison with the data we generated through pCI.  </p>
+   Experimental data are then acquired by parsing the <a href="https://physics.nist.gov/PhysRefData/ASD/levels_form.html" target="_blank">NIST Atomic Spectral Database</a> for full list of energy levels and stored for comparison with the data we generated through pCI. </p>
 </li>
 <li>
 <p><em>Filtering and correcting misidentified configurations</em><br />
