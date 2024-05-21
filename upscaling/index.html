@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Upscaling basis sets - pci</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Upscaling basis sets";
+        var mkdocs_page_input_path = "upscaling.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> pci
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Basics</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="..">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../theory/">Theory</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Using pCI</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../ud_instructions/">Working at UD</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../parallel_codes/">Running the parallel codes</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">pCI Technical Details</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../main/">pCI code package</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../all-order/">All-order/MBPT code package</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../radial_grid/">Changing the radial grid</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../supplementary/">Supplementary programs</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../pci-py/">pCI-py scripts</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../portal_codes/">Portal codes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelog</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Examples</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../pci-py-example/">Sr with pCI-py</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Upscaling basis sets</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#theory">Theory</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#method">Method</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#run-1">Run 1</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#run-2">Run 2</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#example">Example</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../basis_x/">Building a basis set for CI+X</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../qed/">Running QED</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../basis_neutral/">Example 1 - constructing basis for Ac and Sr</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../basis_complex/">Example 2 - constructing basis for Fe XVII and Ni XIX</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../publications/">Publications</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../about/">About the Team</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../contact/">Contact Us</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">pci</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Examples</li>
+      <li class="breadcrumb-item active">Upscaling basis sets</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="upscaling-basis-sets">Upscaling basis sets</h1>
+<p>When running larger and larger CI calculations, you may run into problems due to the lack of available computational resources. In this section, we will discuss a method of generating effective configuration spaces by building on top of a subspace of important configurations, i.e. upscaling the basis set. Applications of this method includes expanding a basis set to include configurations with higher principle quantum numbers, higher partial waves, extra configurations and more.</p>
+<h2 id="theory">Theory</h2>
+<p>We begin with with an initial configuration space <script type="math/tex">H_0</script> from which we were able to obtain the corresponding low-lying eigenvalues <script type="math/tex">E_0</script> and eigenvectors <script type="math/tex">X_0</script>. Our goal is then to obtain the low-lying eigenvalues <script type="math/tex">E</script> and eigenvectors <script type="math/tex">X</script> of a larger configuration space <script type="math/tex">H=H_0+H_1</script>, where <script type="math/tex">H_1</script> is a configuration space generated from an expansion of the initial configuration space <script type="math/tex">H_0</script>. Here, the CI calculation for <script type="math/tex">H</script> is not possible due to prohibitive computational resources, but we can very well approximate <script type="math/tex">H</script> by stripping <script type="math/tex">H_0</script> of unimportant configurations, thus reducing the size of the overall configuration space. The goal then is to construct an effective configuration space 
+<script type="math/tex; mode=display">
+\begin{aligned}
+H^*=H_0^*+H_1 \\
+\approx H_0+H_1
+\end{aligned},
+</script>
+where <script type="math/tex">H_0^*</script> is a subspace of <script type="math/tex">H_0</script> with important configurations. It is important to check that the energies do not shift significantly when stripping <script type="math/tex">H_0</script> of unimportant configurations by running the CI calculation for the <script type="math/tex">H_0^*</script> configuration space, e.g. make sure <script type="math/tex">\Delta E_0=E_0^*-E_0 \approx 0</script>. </p>
+<p>We can then run the CI procedure to obtain the energies <script type="math/tex">E^*</script> and eigenvectors <script type="math/tex">X^*</script> in the effective configuration space <script type="math/tex">H^*</script>. Assuming <script type="math/tex">\Delta E_0 \approx 0</script> as mentioned above, we can approximate the energies of the full larger configuration space <script type="math/tex">H</script> as <script type="math/tex">E\approx E^*-\Delta E_0</script>.</p>
+<h2 id="method">Method</h2>
+<p>We can now apply the upscaling method described above using the pCI code package. This method can be repeated to expand the basis set as many times as necessary. </p>
+<h3 id="run-1">Run 1</h3>
+<p>We start from a base run corresponding to <script type="math/tex">H_0</script>, where we were successful in obtaining the desired energies and eigenvectors via <code>conf</code>. From this run, we can use the <code>con_cut</code> program to obtain <code>CON_CUT.RES</code>, which is a <code>CONF.INP</code> file corresponding to a smaller configuration space corresponding to <script type="math/tex">H_0^*</script>, with the important configurations. Note that when running <code>con_cut</code>, you will be given the option to choose a cutoff value based on the weights of configurations. This subspace should have differences of energies within 5 cm<script type="math/tex">^{-1}</script> from the full configuration space, e.g. <script type="math/tex">E_0^*-E_0 \leq 5</script> cm<script type="math/tex">^{-1}</script>. Note this 5 cm<script type="math/tex">^{-1}</script> is an arbitrary value to ensure an optimal configuration space, where nearly all important configurations are still included. </p>
+<h3 id="run-2">Run 2</h3>
+<p>Next, we will need to generate the configuration subspace <script type="math/tex">H_1</script> corresponding to the desired expansion. This is done by running <code>concmp</code>, which takes in two <code>CONF.INP</code> files named <code>C_A.INP</code> and <code>C_B.INP</code>. Here, <code>C_A.INP</code> should correspond to the configuration space of the initial full run <script type="math/tex">H_0</script> and <code>C_B.INP</code> should correspond to the configuration space of the full desired expansion <script type="math/tex">H</script>. Inputting arguments <code>0 0 1</code>, <code>concmp</code> compares the two configuration lists and outputs a new configuration list <code>C_B_new.INP</code>, which includes all configurations that are in <code>C_B.INP</code>, but not in <code>C_A.INP</code>. We can then use the <code>merge_ci</code> program to merge <code>CON_CUT.RES</code>, corresponding to <script type="math/tex">H_0^*</script>, and <code>C_B_new.INP</code>, corresponding to <script type="math/tex">H_1</script>, to obtain <code>C_M.INP</code>, which corresponds to <script type="math/tex">H^*=H^*_0+H_1</script>. Note that that program <code>merge_ci</code> requires two specific input files, so one must rename <code>CON_CUT.RES</code> to <code>C_A.INP</code> and <code>C_B_new.INP</code> to <code>CONF.INP</code>. Note that this specific choice of renaming <code>CON_CUT.RES</code> to <code>C_A.INP</code> allows the initial matrix for diagonalization to be constructed in the <script type="math/tex">H_0^*</script> subspace. We can then rename the merged <code>C_M.INP</code> to <code>CONF.INP</code> and run <code>conf</code> to obtain the desired energies and eigenvectors. </p>
+<p>The final energies from the expanded basis set can then be calculated by subtracting the energies resulting from <code>conf</code> using <code>CON_CUT.RES</code>. </p>
+<h2 id="example">Example</h2>
+<p>Here is an example of upscaling a basis set from 17g to 18g:</p>
+<ol>
+<li>Run <code>conf</code> for full 17g</li>
+<li>Run <code>con_cut</code> on 17g to obtain 17g_cut configurations in <code>CON_CUT.RES</code> <ul>
+<li>find a <code>log_cutoff</code> threshold value where the energies obtained from the resulting configuration list is near-identical to those of the full 17g run</li>
+</ul>
+</li>
+<li>Run <code>concmp</code> to obtain (18g-17g) configurations, i.e. configurations only in 18g<ul>
+<li>17g in <code>C_A.INP</code>, 18g in <code>C_B.INP</code></li>
+<li>run <code>concmp</code> with input <code>0 0 1</code> to obtain output <code>C_B_new.INP</code></li>
+</ul>
+</li>
+<li>Run <code>merge_ci</code> to combine 17g_cut with (18g-17g) configurations<ul>
+<li>rename <code>C_B_new.INP</code> to <code>CONF.INP</code></li>
+<li>rename <code>CON_CUT.RES</code> from 17g_cut to <code>C_A.INP</code></li>
+</ul>
+</li>
+<li>Run <code>conf</code> to obtain energies for 17g_cut + (18g-17g)</li>
+<li>Obtain energy difference of 18g-17g by subtracting out 17g_cut energies</li>
+</ol>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../pci-py-example/" class="btn btn-neutral float-left" title="Sr with pCI-py"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../basis_x/" class="btn btn-neutral float-right" title="Building a basis set for CI+X">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>&copy; Copyright 2024, pCI Development Team.</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../pci-py-example/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../basis_x/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

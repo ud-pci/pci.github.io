@@ -79,6 +79,8 @@
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../pci-py-example/">Sr with pCI-py</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../upscaling/">Upscaling basis sets</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../basis_x/">Building a basis set for CI+X</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../qed/">Running QED</a>
@@ -123,62 +125,68 @@
               
                 <h1 id="changing-the-radial-grid">Changing the radial grid</h1>
 <p>One feature of the pCI code package stems from the original CI-MBPT code package. One-electron orbitals outside the nucleus are defined on a radial grid. Inside the nucleus, they are described in a form of the Taylor expansion over <script type="math/tex">r/R</script>, where <script type="math/tex">R</script> is the nuclear radius. In the codes used to construct the basis set, the parameter <code>R2</code> sets the size of the radial grid in a.u.  </p>
-<p>The default version of the codes come with a grid of <code>xxx</code> nodes. In order to rebuild the code with a different size grid, several parameters must be changed in the basis set codes. </p>
+<p>The default version of the codes come with a grid of <code>xxx</code> nodes. In order to rebuild the code with a different size grid, several parameters must be changed in the basis set codes. For example, the following parameters sets the codes for a 1500-pt grid:</p>
 <ol>
-<li>bdhf </li>
 <li>
-<p>set <code>NGP=1500</code></p>
+<p><code>bdhf</code></p>
 <ul>
-<li>bdhf.f</li>
-<li>wfun.f</li>
-<li>wint.f</li>
-<li>yfun1.f</li>
-<li>zfun.f</li>
-<li>zint.f</li>
+<li>set <code>NGP=1500</code>:<ul>
+<li><code>bdhf.f</code></li>
+<li><code>wfun.f</code></li>
+<li><code>wint.f</code></li>
+<li><code>yfun1.f</code></li>
+<li><code>zfun.f</code></li>
+<li><code>zint.f</code></li>
+</ul>
+</li>
 </ul>
 </li>
 <li>
-<p>bspl </p>
-</li>
+<p><code>bspl</code> </p>
+<ul>
 <li>set <code>NHF=1500</code><ul>
-<li>bspl.f</li>
+<li><code>bspl.f</code></li>
+</ul>
+</li>
+<li>set <code>NGP=1500</code><ul>
+<li><code>wfun.f</code></li>
+<li><code>wint.f</code></li>
+<li><code>yfun1.f</code></li>
+<li><code>yint1.f</code></li>
+</ul>
+</li>
 </ul>
 </li>
 <li>
-<p>set <code>NGP=1500</code></p>
+<p><code>bas_wj</code>, <code>bas_x</code>, <code>hfd</code>, <code>bass</code>, <code>rpa</code>, <code>rpa_dtm</code></p>
 <ul>
-<li>wfun.f</li>
-<li>wint.f</li>
-<li>yfun1.f</li>
-<li>yint1.f</li>
-</ul>
-</li>
-<li>
-<p>bas_wj, bas_x, hfd, bass, rpa, rpa_dtm</p>
-</li>
 <li>set <code>IPx6=1500</code><ul>
-<li>bas_x.par</li>
+<li><code>bas_x.par</code></li>
+</ul>
+</li>
+<li>set <code>IP6=1470</code><ul>
+<li><code>hfd.par</code></li>
+</ul>
+</li>
 </ul>
 </li>
 <li>
-<p>set <code>IP6=1470</code></p>
+<p><code>allcore-rle-ci</code>, <code>valsd-rle-cis</code>, <code>sdvw-rle-cis</code>, <code>second-cis</code></p>
 <ul>
-<li>hfd.par</li>
+<li>set <code>NHF=1500</code><ul>
+<li><code>all.par</code></li>
+<li><code>second-cis.par</code></li>
+<li><code>archiv.par</code></li>
+</ul>
+</li>
+<li>set <code>NGP=1500</code><ul>
+<li><code>archiv.par</code></li>
+</ul>
+</li>
 </ul>
 </li>
 <li>
-<p>allcore-rle-ci, valsd-rle-cis, sdvw-rle-cis, second-cis</p>
-<ul>
-<li>set <code>NHF=1500</code></li>
-<li>all.par</li>
-<li>second-cis.par</li>
-<li>archiv.par</li>
-<li>set <code>NGP=1500</code></li>
-<li>archiv.par</li>
-</ul>
-</li>
-<li>
-<p>spl.in and bas_wj.in</p>
+<p><code>spl.in</code> and <code>bas_wj.in</code></p>
 <ul>
 <li>set number of points to 0.1 and 1500</li>
 </ul>
