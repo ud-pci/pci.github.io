@@ -182,7 +182,8 @@ CONFp.JJJ</code></p>
 </li>
 </ol>
 <p>After these files are obtained, you can run the parallel version of <code>ine</code>. This requires the input file :</p>
-<pre><code>0                          | Kl = (0-new, 1-use X1, 2-use X1,Y1,Y2)
+<pre><code>0                          | kIters= (0- invert and iterate if diverged, 1-invert only, 2-2-step iteration)
+0                          | Kl = (0-new, 1-use X1, 2-use X1,Y1,Y2)
 2                          | Kli = (1 - H_p, 2 - E1(L), 5 - E2) for RHS of equation
 2                          | Klf = (1 - H_p, 2 - E1(L), 3 - H_am, 4 - E1(V), 5 - E2) for LHS of equation
 5                          | N0 = record number of X0
