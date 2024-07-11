@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Examples - pci</title>
+    <title>Isotope shifts - pci</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Examples";
-        var mkdocs_page_input_path = "examples.md";
+        var mkdocs_page_name = "Isotope shifts";
+        var mkdocs_page_input_path = "isotope_shifts.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -57,14 +57,18 @@
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">pCI Technical Details</span></p>
-              <ul>
+              <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../main/">pCI code package</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../all-order/">All-order/MBPT code package</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../radial_grid/">Changing the radial grid</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../isotope_shifts/">Isotope shifts</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Isotope shifts</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#via-pci-py-scripts">via pCI-py scripts</a>
+    </li>
+    </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../supplementary/">Supplementary programs</a>
                   </li>
@@ -113,7 +117,8 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Examples</li>
+          <li class="breadcrumb-item">pCI Technical Details</li>
+      <li class="breadcrumb-item active">Isotope shifts</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -122,10 +127,39 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="examples">Examples</h1>
+                <h1 id="isotope-shift-calculations">Isotope shift calculations</h1>
+<p>To run isotope shift calculations using the pCI code package, one simply has to add a few keys to the <code>HFD.INP</code>, <code>BASS.INP</code> and <code>CONF.INP</code> files, then run the CI procedure as usual. The main keys used for isotope shifts are the following:  </p>
+<ul>
+<li><code>K_is</code> - defines type of isotope shift to calculate  <ul>
+<li><code>K_is = 0</code> - no isotope shift</li>
+<li><code>K_is = 1</code> - field shift</li>
+<li><code>K_is = 2</code> - specific mass shift</li>
+<li><code>K_is = 3</code> - normal mass shift</li>
+<li><code>K_is = 4</code> - total mass shift  </li>
+</ul>
+</li>
+<li><code>C_is</code> - prefactor for IS perturbation (C_is = dR_nucl/R_nucl)</li>
+<li><code>Klow</code> - lower component key </li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For isotope shifts, it is important to recompile <code>basc</code> and <code>conf</code> with arrays for 2-electron integrals set to <code>double precision</code> type. This can be done in the <code>params.f90</code> file by changing the value of <code>Integer, Parameter :: type2_real = sp</code> from <code>sp</code>  to <code>dp</code>. You can confirm this change in the title of the <code>BASC.RES</code> and <code>CONF.RES</code> output files, which should mention <code>double precision for 2e integrals</code>.</p>
+</div>
+<h2 id="via-pci-py-scripts">via pCI-py scripts</h2>
+<p>Isotope shift calculations can also be automated using the pCI-py scripts. To do this, simply set the keys in the <code>config.yml</code> file. For example, we can set our field shift calculation with <code>C_is=0.01</code>:</p>
+<pre><code>optional:
+    isotope_shifts: 
+        include: True
+        K_is: 1
+        C_is: 0.01
+</code></pre>
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../radial_grid/" class="btn btn-neutral float-left" title="Changing the radial grid"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../supplementary/" class="btn btn-neutral float-right" title="Supplementary programs">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -148,6 +182,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
+      <span><a href="../radial_grid/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../supplementary/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
